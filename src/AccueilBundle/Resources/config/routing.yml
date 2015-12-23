@@ -1,3 +1,27 @@
 accueil_homepage:
     path:     /
     defaults: { _controller: AccueilBundle:Default:index }
+
+accueil_accueil:
+    path:     /accueil
+    defaults: { _controller: AccueilBundle:Default:index }
+
+accueil_gestionDeRappels:
+    path:     /gestionDeRappels
+    defaults: { _controller: AccueilBundle:Default:gestionDeRappels }
+
+accueil_clubRH:
+    path:     /clubRH
+    defaults: { _controller: AccueilBundle:Default:clubRH }
+
+accueil_miniSocial:
+    path:     /miniSocial
+    defaults: { _controller: AccueilBundle:Default:miniSocial }
+
+accueil_SEL:
+    path:     /SEL
+    defaults: { _controller: AccueilBundle:Default:SEL }
+
+accueil_guideResponsable:
+    path:     /guideResponsable
+    defaults: { _controller: AccueilBundle:Default:guideResponsable }
