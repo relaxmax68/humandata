@@ -1,0 +1,3 @@
+accueil_homepage:
+    path:     /
+    defaults: { _controller: AccueilBundle:Default:index }
