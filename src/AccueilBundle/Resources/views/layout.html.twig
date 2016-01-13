@@ -1,0 +1,34 @@
+{% extends "::bootstrap.html.twig" %}
+
+{% block title %}Accueil - Humandata.info{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div id="header" class="jumbotron">
+      <h1>Humandata</h1>
+      <p>
+        Projet propulsé par Symfony 3
+      </p>
+    </div>
+
+    <div class="row">
+      <div id="menu" class="col-md-3">
+        <h4>Dernières annonces</h4>
+          {{ render(controller("AccueilBundle:Default:menu", {'limit': 5})) }}
+      </div>
+
+      <div id="content" class="col-md-9">
+      {% block content %}
+      {% endblock %}
+      </div>
+
+    </div>
+
+    <hr>
+
+    {% block footer %}
+    {% endblock %}
+
+  </div>
+
+{% endblock %}

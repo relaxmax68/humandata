@@ -3,7 +3,6 @@
 namespace AccueilBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -33,7 +32,8 @@ class DefaultController extends Controller
     }
     public function projetsAction($id)
     {
-        return new Response("affichage du projet ".$id);
+        return $this->render('AccueilBundle:Default:projets.html.twig');
+
     }
     public function clubRHAction()
     {
