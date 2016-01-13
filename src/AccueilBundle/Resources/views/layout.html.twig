@@ -13,7 +13,7 @@
 
     <div class="row">
       <div id="menu" class="col-md-3">
-        <h4>Dernières annonces</h4>
+        <h4>Projets en cours</h4>
           {{ render(controller("AccueilBundle:Default:menu", {'limit': 5})) }}
       </div>
 
@@ -26,9 +26,13 @@
 
     <hr>
 
-    {% block footer %}
-    {% endblock %}
-
-  </div>
-
 {% endblock %}
+
+{% block footer %}
+  <h1>Ce site est en cours de construction...</h1>
+  <p><a href="mailto:webmaster@humandata.info">contactez le Webmaster</a></p>
+  <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
+{% endblock %}
+
+
+

@@ -15,7 +15,7 @@ class DefaultController extends Controller
     {
         
         $listProjets = array(
-          array('id' => 1, 'title' => 'gestion de rappels'),
+          array('id' => 1, 'title' => 'gestion de rappels','comment' => 'Bienvenue dans le projet de création d\'un gestionnaire de rappels'),
           array('id' => 2, 'title' => 'club RH'),
           array('id' => 3, 'title' => 'mini réseau social'),
           array('id' => 4, 'title' => 'gestion de SEL'),
@@ -32,7 +32,7 @@ class DefaultController extends Controller
     }
     public function projetsAction($id)
     {
-        return $this->render('AccueilBundle:Default:projets.html.twig');
+        return $this->render('AccueilBundle:Default:projets.html.twig',array( 'id' => $id ));
 
     }
     public function clubRHAction()
