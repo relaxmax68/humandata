@@ -23,8 +23,10 @@
     </div>
 
     <div class="row">
-      <div id="menu" class="col-md-3"></div>
-
+      <div id="menu" class="col-md-3">
+        <h4>Dernières annonces</h4>
+          {{ render(controller("AccueilBundle:Default:menu", {'limit': 5})) }}
+      </div>    
       <div id="content" class="col-md-9">
       {% block body %}
       {% endblock %}

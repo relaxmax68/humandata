@@ -2,6 +2,12 @@ accueil_homepage:
     path:     /
     defaults: { _controller: AccueilBundle:Default:index }
 
+accueil_projets:
+    path:     /projets/{id}
+    defaults: { _controller: AccueilBundle:Default:projets }
+    requirements:
+        id: \d+
+
 accueil_gestionDeRappels:
     path:     /gestionDeRappels
     defaults: { _controller: AccueilBundle:Default:gestionDeRappels }
