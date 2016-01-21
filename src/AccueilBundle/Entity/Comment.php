@@ -43,7 +43,7 @@ class Comment
     private $content;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OC\AccueilBundle\Entity\Project")
+    * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Project")
     * @ORM\JoinColumn(nullable=false)
     */
     private $project;

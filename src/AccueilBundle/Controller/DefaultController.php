@@ -25,30 +25,15 @@ class DefaultController extends Controller
         return $this->render('AccueilBundle:Default:menu.html.twig', array(
           'listProjets' => $listProjets
         ));
-  }
+    }
+
     public function accueilAction()
     {
         return $this->render('AccueilBundle:Default:index.html.twig');
     }
+
     public function projetsAction($id)
     {
         return $this->render('AccueilBundle:Default:projets.html.twig',array( 'id' => $id ));
-
-    }
-    public function clubRHAction()
-    {
-        return $this->render('AccueilBundle:Default:clubRH.html.twig');
-    }
-    public function miniSocialAction()
-    {
-        return $this->render('AccueilBundle:Default:miniSocial.html.twig');
-    }
-    public function SELAction()
-    {
-        return $this->render('AccueilBundle:Default:SEL.html.twig');
-    }
-    public function guideResponsableAction()
-    {
-        return $this->render('AccueilBundle:Default:guideResponsable.html.twig');
     }
 }
