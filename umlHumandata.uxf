@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>440</x>
+      <y>280</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Project
+bg=orange
+--
+id:int
+name:string
+deadline:datetime
+date:datetime
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>740</x>
+      <y>280</y>
+      <w>120</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Comment
+--
+id:int
+author:string
+date:datetime
+content:text
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>890</x>
+      <y>170</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>_object: Class_
+--
+id: Long="36548"
+[waiting for message]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>560</x>
+      <y>300</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1..1
+suscite&gt;</panel_attributes>
+    <additional_attributes>30;50;180;50</additional_attributes>
+  </element>
+</diagram>
