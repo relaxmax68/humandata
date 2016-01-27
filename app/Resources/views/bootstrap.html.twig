@@ -16,11 +16,19 @@
 </head>
 
 <body>
+
+  <div class="container">
+ 
+  {% block connexion %}
+  {% endblock %}
+
   {% block body %}
   {% endblock %}
 
   {% block footer %}
   {% endblock %}
+
+  </div>
 
   {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}

@@ -8,7 +8,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AccueilBundle:Default:index.html.twig',array('listProjets'=>array()));
+        return $this->render('AccueilBundle:Default:accueil.html.twig',array('listProjets'=>array()));
     }
 
     public function menuAction($limit)
@@ -29,7 +29,7 @@ class DefaultController extends Controller
 
     public function accueilAction()
     {
-        return $this->render('AccueilBundle:Default:index.html.twig');
+        return $this->render('AccueilBundle:Default:accueil.html.twig');
     }
 
     public function projetsAction($id)

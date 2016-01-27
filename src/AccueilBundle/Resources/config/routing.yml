@@ -1,6 +1,6 @@
 accueil_homepage:
     path:     /
-    defaults: { _controller: AccueilBundle:Default:index }
+    defaults: { _controller: AccueilBundle:Default:accueil }
 
 accueil_projets:
     path:     /projets/{id}
