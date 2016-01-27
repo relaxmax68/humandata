@@ -23,7 +23,7 @@
     <div class="row">
       <div id="menu" class="col-md-3">
         <h4>Projets en cours</h4>
-          {{ render(controller("AccueilBundle:Default:menu", {'limit': 5})) }}
+          {{ knp_menu_render('AccueilBundle:Builder:mainMenu') }}
       </div>
 
       <div id="content" class="col-md-9">
