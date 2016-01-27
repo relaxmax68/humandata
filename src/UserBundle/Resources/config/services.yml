@@ -2,3 +2,5 @@ services:
 #    user.example:
 #        class: UserBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    fos_user.doctrine_registry:
+        alias: doctrine
