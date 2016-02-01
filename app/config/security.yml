@@ -29,3 +29,9 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+
+    role_hierarchy:
+        # Un admin hérite des droits d'ulilisateur et de modérateur
+        ROLE_ADMIN:       [ROLE_USER, ROLE_MODERATEUR]
+        # On garde ce rôle superadmin, il nous resservira par la suite
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
