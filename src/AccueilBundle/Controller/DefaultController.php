@@ -38,11 +38,11 @@ class DefaultController extends Controller
         return $this->render('AccueilBundle:Default:projets.html.twig',array( 'id' => $id ));
     }
 
-    public function messageAction(Request $request)
+    public function messageAction(Request $request, $id)
     {
         $session = $request->getSession();
 
-        $session->getFlashBag()->add('info', "La page du projet n'est pas encore disponible");
+        $session->getFlashBag()->add('info', "La page du projet ".$id." n'est pas encore disponible");
         return $this->redirectToRoute('accueil_homepage');
     }
 }
