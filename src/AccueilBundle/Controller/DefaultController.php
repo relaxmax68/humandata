@@ -3,6 +3,7 @@
 namespace AccueilBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -35,5 +36,13 @@ class DefaultController extends Controller
     public function projetsAction($id)
     {
         return $this->render('AccueilBundle:Default:projets.html.twig',array( 'id' => $id ));
+    }
+
+    public function messageAction(Request $request)
+    {
+        $session = $request->getSession();
+
+        $session->getFlashBag()->add('info', "La page du projet n'est pas encore disponible");
+        return $this->redirectToRoute('accueil_homepage');
     }
 }

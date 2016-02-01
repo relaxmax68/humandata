@@ -2,6 +2,13 @@
 
 {% block content %}
 
+    <p>
+      {# On affiche tous les messages flash dont le nom est « info » #}
+      {% for message in app.session.flashbag.get('info') %}
+        <p class="btn btn-info">Attention : {{ message }}</p>
+      {% endfor %}
+    </p>
+
 	<h3>Bienvenue chez Humandata</h3>
 
 {% endblock %}

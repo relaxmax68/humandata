@@ -1,9 +1,0 @@
-accueil_homepage:
-    path:     /
-    defaults: { _controller: AccueilBundle:Default:accueil }
-
-accueil_projets:
-    path:     /projets/{id}
-    defaults: { _controller: AccueilBundle:Default:projets }
-    requirements:
-        id: \d+
