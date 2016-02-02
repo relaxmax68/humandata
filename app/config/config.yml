@@ -80,3 +80,11 @@ fos_user:
     from_email:
         address:        webmaster@humandata.info
         sender_name:    webmaster
+
+easy_admin:
+    entities:
+        - AccueilBundle\Entity\Project
+        - AccueilBundle\Entity\Comment
+        - UserBundle\Entity\User
+
+
