@@ -7,11 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('AccueilBundle:Default:accueil.html.twig',array('listProjets'=>array()));
-    }
-
     public function accueilAction()
     {
         return $this->render('AccueilBundle:Default:accueil.html.twig');
