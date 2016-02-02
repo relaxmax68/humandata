@@ -72,3 +72,11 @@ fos_user:
     db_driver:     orm                    # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                   # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+
+    registration:
+        confirmation:
+            enabled: true
+
+    from_email:
+        address:        webmaster@humandata.info
+        sender_name:    webmaster
