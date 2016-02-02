@@ -1,0 +1,19 @@
+/* TEAM */
+
+Maxime FRIEH    coordinateur du projet
+
+à tous les futurs collaborateurs
+
+à tous les futurs testeurs
+
+à tous les futurs usagers
+
+/* SITE */
+
+Remerciements:
+
+aux tutauriaux que j'ai pu suivre grâce à Openclassroom
+https://openclassroom.com
+
+au framework Symfony qui m'a permis de coder d'une façon qui me correspond
+https://symfony.com
