@@ -17,3 +17,10 @@ https://openclassroom.com
 
 au framework Symfony qui m'a permis de coder d'une façon qui me correspond
 https://symfony.com
+
+à l'éditeur de texte Sublime text 3
+http:www.sublimetext.com
+
+Langue principale : Français
+
+Dernière mise à jour : 01/02/2016
