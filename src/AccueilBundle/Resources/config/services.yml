@@ -9,5 +9,7 @@ services:
 
     accueil.ip.listener:
         class: AccueilBundle\IP\IPListener
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: processIP }

@@ -3,19 +3,17 @@
 
 namespace AccueilBundle\IP;
 
+use AccueilBundle\Entity\Visite;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 class IPListener
 {
-  // récupération de l'adresse IP
-  protected $ip;
-  // Date de connexion
-  protected $date;
+  protected $doctrine;
 
-  public function __construct()
+  public function __construct($doctrine)
   {
-      $this->date  = new \Datetime();
+      $this->doctrine  = $doctrine;
   }
 
   // L'argument de la méthode est un FilterControllerEvent
@@ -32,6 +30,13 @@ class IPListener
       $ip = $_SERVER["REMOTE_ADDR"];
     }
 
-    $event->getRequest()->getSession()->getFlashBag()->add('info', "L'adresse IP est ".$ip);
+    $visite = new Visite();
+    $visite->setIpAddress($ip);
+    $visite->setDateFirstVisit(new \datetime());
+    $visite->setDateLastVisit(new \datetime());
+
+    $this->doctrine->persist($visite);
+    $this->doctrine->flush();
+    //$this->doctrine->getRepository('AccueilBundle:Visite');
   }
 }
