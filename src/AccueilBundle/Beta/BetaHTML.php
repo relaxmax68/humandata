@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 class BetaHTML
 {
   // Méthode pour ajouter le « bêta » à une réponse
-  public function displayBeta($request, Response $response, $remainingDays, $IPAddress)
+  public function displayBeta(Response $response, $remainingDays)
   {
     $content = $response->getContent();
 
@@ -25,9 +25,6 @@ class BetaHTML
 
     // Modification du contenu dans la réponse
     $response->setContent($content);
-
-    $session = $request->getSession();
-    $session->getFlashBag()->add('info', "L'adresse IP est ".$IPAddress);
 
     return $response;
   }

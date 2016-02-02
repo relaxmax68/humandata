@@ -1,9 +1,13 @@
 services:
     accueil.beta.html:
         class: AccueilBundle\Beta\BetaHTML
-        #arguments: [@service_id, "plain_value", %parameter%]
     accueil.beta.listener:
         class: AccueilBundle\Beta\BetaListener
-        arguments: ["@accueil.beta.html", "2016-10-20"]
+        arguments: ["@accueil.beta.html", "01-09-2016"]
         tags:
-            - { name: kernel.event_listener, event: kernel.response, method: processBeta }        
+            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
+
+    accueil.ip.listener:
+        class: AccueilBundle\IP\IPListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: processIP }
