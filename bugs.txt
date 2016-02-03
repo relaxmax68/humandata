@@ -1,0 +1,1 @@
+Deux controlleurs sont sollicités à chaque affichage de page ce qui implique deux MAJ en base de données VISITE
