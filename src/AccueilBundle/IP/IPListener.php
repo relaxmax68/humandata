@@ -30,13 +30,17 @@ class IPListener
       $ip = $_SERVER["REMOTE_ADDR"];
     }
 
-    $visite = new Visite();
-    $visite->setIpAddress($ip);
-    $visite->setDateFirstVisit(new \datetime());
-    $visite->setDateLastVisit(new \datetime());
+    $visite=$this->doctrine->getRepository('AccueilBundle:Visite')->findOneByipAddress($ip);
 
+    if($visite->getIpAddress()!=$ip){
+      $visite = new Visite();
+      $visite->setIpAddress($ip);
+      $visite->setDateLastVisit(new \datetime());
+    }    
+    $visite->setDateLastVisit(new \datetime());
+    
     $this->doctrine->persist($visite);
     $this->doctrine->flush();
-    //$this->doctrine->getRepository('AccueilBundle:Visite');
+
   }
 }

@@ -41,6 +41,13 @@ class Visite
      * @ORM\Column(name="ipAddress", type="string", length=255)
      */
     private $ipAddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="identitification", type="string", length=255, nullable=true)
+     */
+    private $identitification;
     
     public function __construct()
     {
