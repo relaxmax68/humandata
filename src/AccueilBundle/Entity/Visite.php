@@ -48,7 +48,21 @@ class Visite
      * @ORM\Column(name="identitification", type="string", length=255, nullable=true)
      */
     private $identitification;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="agent", type="string", length=255)
+     */
+    private $agent;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="language", type="string", length=255)
+     */
+    private $language;
+
     public function __construct()
     {
       $this->dateFirstVisit  = new \Datetime();
@@ -135,5 +149,76 @@ class Visite
     {
         return $this->ipAddress;
     }
-}
 
+    /**
+     * Set identitification
+     *
+     * @param string $identitification
+     *
+     * @return Visite
+     */
+    public function setIdentitification($identitification)
+    {
+        $this->identitification = $identitification;
+
+        return $this;
+    }
+
+    /**
+     * Get identitification
+     *
+     * @return string
+     */
+    public function getIdentitification()
+    {
+        return $this->identitification;
+    }
+
+    /**
+     * Set agent
+     *
+     * @param string $agent
+     *
+     * @return Visite
+     */
+    public function setAgent($agent)
+    {
+        $this->agent = $agent;
+
+        return $this;
+    }
+
+    /**
+     * Get agent
+     *
+     * @return string
+     */
+    public function getAgent()
+    {
+        return $this->agent;
+    }
+
+    /**
+     * Set language
+     *
+     * @param string $language
+     *
+     * @return Visite
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+}

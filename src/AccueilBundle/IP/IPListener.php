@@ -4,6 +4,7 @@
 namespace AccueilBundle\IP;
 
 use AccueilBundle\Entity\Visite;
+use UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
@@ -29,16 +30,25 @@ class IPListener
     }else{
       $ip = $_SERVER["REMOTE_ADDR"];
     }
-
+    //on cherche une IP déjà enregistrée dans la BDD
     $visite=$this->doctrine->getRepository('AccueilBundle:Visite')->findOneByipAddress($ip);
-
-    if($visite->getIpAddress()!=$ip){
+    //si première visite on l'enregistre
+    if(empty($visite)){
       $visite = new Visite();
       $visite->setIpAddress($ip);
       $visite->setDateLastVisit(new \datetime());
-    }    
+      $visite->setAgent($_SERVER["HTTP_USER_AGENT"]);
+      $visite->setLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+    }
+    //Dans tous les cas on enregistre la date de dernière visite    
     $visite->setDateLastVisit(new \datetime());
     
+    //Ne fonctionne pas…
+    if(!empty($user)){
+      $visite->setIdentification($user->getUsername());
+    }
+
+
     $this->doctrine->persist($visite);
     $this->doctrine->flush();
 
