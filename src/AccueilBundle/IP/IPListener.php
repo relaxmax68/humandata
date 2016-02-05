@@ -40,10 +40,12 @@ class IPListener
       $visite->setAgent($_SERVER["HTTP_USER_AGENT"]);
       $visite->setLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
     }
-    //Dans tous les cas on enregistre la date de dernière visite    
+    //Dans tous les cas on enregistre la date de dernière visite et on incrémente le compteur de visites
     $visite->setDateLastVisit(new \datetime());
-    
-    //Ne fonctionne pas…
+    $visite->incVisit();
+
+    //on teste si le visiteur s'est authentifié pour identifier sa visite
+    //ne marche pas
     if(!empty($user)){
       $visite->setIdentification($user->getUsername());
     }

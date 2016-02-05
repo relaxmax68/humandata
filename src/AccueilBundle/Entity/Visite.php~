@@ -36,7 +36,7 @@ class Visite
     private $dateLastVisit;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nbVisit", type="integer")
      */
@@ -73,6 +73,7 @@ class Visite
     public function __construct()
     {
       $this->dateFirstVisit  = new \Datetime();
+      $this->nbVisit         = 1;
     }
 
     /**
@@ -232,7 +233,7 @@ class Visite
     /**
      * Set nbVisit
      *
-     * @param integer $nbVisit
+     * @param \int $nbVisit
      *
      * @return Visite
      */
