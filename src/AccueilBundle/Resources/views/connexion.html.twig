@@ -1,0 +1,26 @@
+{% extends "::bootstrap.html.twig" %}
+
+{% block title %}Humandata.info{% endblock %}
+
+{% block connexion %}
+<div class="container">
+
+  <div id="connexion" class="pull-right">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+      Connecté en tant que {{ app.user.username }}-<a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+    {% else %}
+      <p><a href="{{ path('fos_user_security_login') }}">Connexion</a></p>
+      <p><a href="{{ path('fos_user_registration_register') }}">Créer un compte</a></p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block body %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+
+
+
