@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="11.3">
+  <help_text>// Uncomment the following line to change the fontsize and font:
+fontsize=18
+fontfamily=Monospaced
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Welcome to UMLet!
+//
+// Double-click on elements to add them to the diagram, or to copy them
+// Edit elements by modifying the text in this panel
+// Hold Ctrl to select multiple elements
+// Use Ctrl+mouse to select via lasso
+//
+// Use +/- or Ctrl+mouse wheel to zoom
+// Drag a whole relation at its central square icon
+//
+// Press Ctrl+C to copy the whole diagram to the system clipboard (then just paste it to, eg, Word)
+// Edit the files in the "palettes" directory to create your own element palettes
+//
+// Select "Custom Elements &gt; New..." to create new element types
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// This text will be stored with each diagram;  use it for notes.</help_text>
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>240</x>
+      <y>480</y>
+      <w>120</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Membres
+bg=blue
+--
+left:Nom
+Localization</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>210</x>
+      <y>250</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Organisation
+--
+left:Nom
+Localization
+Transactions
+Durée
+Modérateur
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>220</x>
+      <y>70</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Groupe
+--
+left:Name
+Objectif
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>180</x>
+      <y>340</y>
+      <w>198</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;regroupe&gt;&gt;</panel_attributes>
+    <additional_attributes>100;140;100;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>160</x>
+      <y>110</y>
+      <w>198</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;regroupe&gt;&gt;</panel_attributes>
+    <additional_attributes>100;140;100;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>540</x>
+      <y>260</y>
+      <w>780</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>Actions/Transactions
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>560</x>
+      <y>300</y>
+      <w>200</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>échanges
+--
+monnaies officielles
+monnaies locales
+troc
+heures
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>800</x>
+      <y>300</y>
+      <w>130</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>discussions</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>800</x>
+      <y>380</y>
+      <w>100</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>partage
+--
+fichiers
+liens
+images
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>540</x>
+      <y>130</y>
+      <w>300</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Visibilité
+--
+entre membres
+entre organisations
+publique
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>540</x>
+      <y>630</y>
+      <w>330</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Valorisation
+--
+mapping (en html/css)
+géolocalisation
+arborescences
+forum
+fils RSS
+e-mail
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>560</x>
+      <y>490</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>évènements
+--
+rencontres
+sorties
+séjours
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>800</x>
+      <y>490</y>
+      <w>200</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Solidarité
+--
+covoiturage
+colunching
+coworking
+cosleeping
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>1020</x>
+      <y>300</y>
+      <w>290</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Communication
+--
+Doodling
+planning
+répertoires
+traduction
+budget
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>1020</x>
+      <y>460</y>
+      <w>290</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Positionnement
+--
+profils
+projets personnels
+projets collectifs
+règlement intérieur (forum…)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>290</x>
+      <y>50</y>
+      <w>270</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;accéder&gt;&gt;</panel_attributes>
+    <additional_attributes>250;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>540</x>
+      <y>20</y>
+      <w>220</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Autres organisations
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
