@@ -1,0 +1,22 @@
+accueil_homepage:
+    path:     /
+    defaults: { _controller: AccueilBundle:Default:accueil }
+
+accueil_projets:
+    path:     /projets/{id}
+    defaults: { _controller: AccueilBundle:Default:projets }
+    requirements:
+        id: \d+
+
+message:
+    path:     /message/{id}
+    defaults:
+        _controller: AccueilBundle:Default:message
+        id: 1
+    requirements:
+        id: \d+
+
+sel:
+    path:     /sel
+    defaults: { _controller: SELBundle:Default:index }
+
