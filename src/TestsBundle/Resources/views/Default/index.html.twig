@@ -2,14 +2,43 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World</title>
+    <title>AnimatedTransition</title>
+
+  {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('main.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('reset.css') }}"/>
+
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900|Raleway:400,300,700,600,900' rel='stylesheet' type='text/css'>
+  {% endblock %}
+
   </head>
 
   <body>
-    Ce texte est affiché en HTML
-    <span id="texteJQ"></span>
-    <script src="{{ asset('jquery-2.2.0.js')   }}"></script>
-    <script src="{{ asset('jq-hello-world.js') }}"></script>
+ 
+  <div id="main-page">
+  <!--- Main Content Here -->
+    <div class="maincontent">
+      <h1>Full Page Transition</h1>
+      <a class="mainlink">TRY IT NOW &#10140;</a>
+    </div>
+  </div>
+  
+  <div id="next-page">
+    <div class="nextcontent">
+      <h1>Great! You're in the 2nd Page!</h1>
+      <a class="nextlink"> &#8592 GO BACK</a>
+    </div>
+  </div>
+{% block javascripts %}  
+  <script src="{{ asset('jquery-2.2.0.js') }}"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="http://code.jquery.com/color/jquery.color-2.1.0.min.js"></script>
+
+  <script src="{{ asset('animatedTransition.js') }}"></script>
+
+{% endblock %}
+
   </body>
 
 </html>
