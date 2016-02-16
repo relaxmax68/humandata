@@ -11,10 +11,25 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
-  /**
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  protected $id;
+	/**
+	* @ORM\Column(name="id", type="integer")
+	* @ORM\Id
+	* @ORM\GeneratedValue(strategy="AUTO")
+	*/
+	protected $id;
+
+    /**
+     * @return expiresAt
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+    /**
+     * @return credentialsExpireAt
+     */
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
 }
