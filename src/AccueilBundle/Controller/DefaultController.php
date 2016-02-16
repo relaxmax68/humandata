@@ -30,4 +30,15 @@ class DefaultController extends Controller
         $session->getFlashBag()->add('info', "La page ".$id." n'est pas encore disponible");
         return $this->redirectToRoute('accueil_homepage');
     }
+
+    public function visitesAction()
+    {
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AccueilBundle:Visite');
+
+        $visites = $repository->findAll();
+        return $this->render('AccueilBundle::visites.html.twig',array('visites' => $visites));
+    }
 }

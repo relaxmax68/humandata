@@ -1,0 +1,15 @@
+{% extends "AccueilBundle::connexion.html.twig" %}
+
+{% block body %}
+
+<div class="row">
+	<ul class="col-md-3" "list-group">
+
+	  {% for visite in visites %}
+	    <li class="list-group-item">{{ visite.ipAddress }}</li>
+	  {% endfor %}
+
+	</ul>
+</div>
+
+{% endblock %}

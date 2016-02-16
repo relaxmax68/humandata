@@ -22,7 +22,7 @@ message:
     requirements:
         id: \d+
 
-sel:
-    path:     /sel
-    defaults: { _controller: SELBundle:Default:index }
+visites:
+    path:     /visites
+    defaults: { _controller: AccueilBundle:Default:visites }
 

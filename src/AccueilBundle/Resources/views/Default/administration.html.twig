@@ -4,8 +4,12 @@
 
 <h3>Page d'administration n° {{id}}</h3>
 
-<a class="btn btn-primary btn-xs" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
+	<a class="btn btn-primary btn-xs" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
 
-<a class="btn btn-primary btn-xs" href="{{path('message')}}/{{id}}">Aller vers la page</a>
+	{% if id == 3 %} 
+		<a class="btn btn-primary btn-xs" href="{{path('visites')}}">Aller vers la page</a>
+	{% else %}
+		<a class="btn btn-primary btn-xs" href="{{path('message')}}/{{id}}">Aller vers la page</a>
+	{% endif %}
 
 {% endblock %}
