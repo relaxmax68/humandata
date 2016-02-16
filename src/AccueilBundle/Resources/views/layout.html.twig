@@ -11,20 +11,26 @@
   </div>
 
   <div class="row">
+
     <div id="menu" class="col-md-3">
       <h4>Projets en cours</h4>
         {{ knp_menu_render('AccueilBundle:Builder:mainMenu') }}
     </div>
 
-    <div id="content" class="col-md-9">
+    <div id="content" class="col-md-6">
     {% block content %}
-
-		<h3>Bienvenue chez Humandata</h3>
-
+      <h3>Bienvenue chez Humandata</h3>
+      <hr>
     {% endblock %}
     </div>
 
-  <hr>
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+      <div id="menu" class="col-md-3">
+        <h4>Administration</h4>
+          {{ knp_menu_render('AccueilBundle:Builder:administrationMenu') }}
+      </div>
+    {% endif %}
+
   </div>
 
 {% endblock %}

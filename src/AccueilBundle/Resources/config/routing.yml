@@ -8,6 +8,12 @@ accueil_projets:
     requirements:
         id: \d+
 
+accueil_administration:
+    path:     /administration/{id}
+    defaults: { _controller: AccueilBundle:Default:administration }
+    requirements:
+        id: \d+
+
 message:
     path:     /message/{id}
     defaults:

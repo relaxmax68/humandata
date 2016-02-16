@@ -34,4 +34,27 @@ class Builder implements ContainerAwareInterface
 
         return $menu;
     }
+
+    public function administrationMenu(FactoryInterface $factory, array $options)
+    {
+        
+        $menu = $factory->createItem('root');
+
+        // access services from the container!
+        $em = $this->container->get('doctrine')->getManager();
+        // findMostRecent and Blog are just imaginary examples
+        $listItem = $em->getRepository('AccueilBundle:Administration')->findAll();
+        
+        foreach($listItem as $item){
+            $menu->addChild(
+                $item->getName(),
+                array(
+                 'route' => 'accueil_administration',
+                 'routeParameters' => array('id' => $item->getId())
+                )
+            );
+        }
+
+        return $menu;
+    }
 }
