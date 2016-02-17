@@ -1,44 +1,22 @@
 {% extends "AccueilBundle:Analyse:layout.html.twig" %}
 
 {% block body %}
-    <h1>Analyse</h1>
+    <div class="list-group">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{{ analyse.link }}" class="list-group-item">
+                    <h4 class="list-group-item-heading">{{ analyse.item }}</h4>
+                    <p class="list-group-item-text">{{ analyse.comment }}</p>
+                    <h6>Category : {{ analyse.category.name }}</h6>
+                    <h6>Object : {{ analyse.object.name }}</h6>
+                 </a>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" href="{{ path('administration_analyse_index') }}">Back to the list</a>
+    <a class="btn btn-primary" href="{{ path('administration_analyse_edit', { 'id': analyse.id }) }}">Edit</a>
+    {{ form_start(delete_form) }}
+        <input class="btn btn-danger" type="submit" value="Delete">
+    {{ form_end(delete_form) }}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ analyse.id }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{{ analyse.category.name }}</td>
-            </tr>
-            <tr>
-                <th>Object</th>
-                <td>{{ analyse.object.name }}</td>
-            </tr>
-            <tr>
-                <th>Item</th>
-                <td>{{ analyse.item }}</td>
-            </tr>
-            <tr>
-                <th>Link</th>
-                <td>{{ analyse.link }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('administration_analyse_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('administration_analyse_edit', { 'id': analyse.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

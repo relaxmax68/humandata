@@ -28,7 +28,7 @@ class AnalyseType extends AbstractType
                                                      ))
             ->add('item',    TextType::class)
             ->add('link',    TextType::class,array('required' => false))
-        ;
+            ->add('comment', TextType::class);
     }
     
     /**

@@ -47,6 +47,12 @@ class Analyse
      */
     private $link;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="string", length=255)
+     */
+    private $comment;
 
     /**
      * Get id
@@ -152,5 +158,29 @@ class Analyse
     public function getObject()
     {
         return $this->object;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     *
+     * @return Analyse
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }
