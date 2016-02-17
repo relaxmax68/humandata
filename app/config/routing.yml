@@ -1,10 +1,10 @@
-accueil_analyse:
-    resource: "@AccueilBundle/Controller/AnalyseController.php"
-    type:     annotation
-
 accueil:
     resource: "@AccueilBundle/Resources/config/routing.yml"
     prefix:   /
+
+accueil_analyse:
+    resource: "@AccueilBundle/Controller/AnalyseController.php"
+    type:     annotation
 
 app:
     resource: "@AppBundle/Controller/"

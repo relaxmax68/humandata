@@ -5,6 +5,9 @@ namespace AccueilBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class AnalyseType extends AbstractType
 {
@@ -15,10 +18,16 @@ class AnalyseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('category')
-            ->add('item')
-            ->add('link')
+            ->add('object',  EntityType::class,array('class'        => 'AccueilBundle:Object',
+                                                     'choice_label' => 'name',
+                                                     'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}
+                                                     ))
+            ->add('category',EntityType::class,array('class'        => 'AccueilBundle:Category',
+                                                     'choice_label' => 'name',
+                                                     'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}
+                                                     ))
+            ->add('item',    TextType::class)
+            ->add('link',    TextType::class,array('required' => false))
         ;
     }
     

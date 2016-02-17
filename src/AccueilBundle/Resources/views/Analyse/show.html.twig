@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends "AccueilBundle:Analyse:layout.html.twig" %}
 
 {% block body %}
     <h1>Analyse</h1>
@@ -10,12 +10,12 @@
                 <td>{{ analyse.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
-                <td>{{ analyse.name }}</td>
+                <th>Category</th>
+                <td>{{ analyse.category.name }}</td>
             </tr>
             <tr>
-                <th>Category</th>
-                <td>{{ analyse.category }}</td>
+                <th>Object</th>
+                <td>{{ analyse.object.name }}</td>
             </tr>
             <tr>
                 <th>Item</th>

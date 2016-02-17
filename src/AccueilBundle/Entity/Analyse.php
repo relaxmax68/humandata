@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Analyse
  *
- * @ORM\Table(name="analyse")
+ * @ORM\Table(name="analyse_item")
  * @ORM\Entity(repositoryClass="AccueilBundle\Repository\AnalyseRepository")
  */
 class Analyse
@@ -22,18 +22,16 @@ class Analyse
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Category")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Object")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $object;
 
     /**
      * @var string
@@ -58,54 +56,6 @@ class Analyse
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Analyse
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set category
-     *
-     * @param string $category
-     *
-     * @return Analyse
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 
     /**
@@ -155,5 +105,52 @@ class Analyse
     {
         return $this->link;
     }
-}
 
+    /**
+     * Set category
+     *
+     * @param \AccueilBundle\Entity\Category $category
+     *
+     * @return Analyse
+     */
+    public function setCategory(\AccueilBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AccueilBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set object
+     *
+     * @param \AccueilBundle\Entity\Object $object
+     *
+     * @return Analyse
+     */
+    public function setObject(\AccueilBundle\Entity\Object $object)
+    {
+        $this->object = $object;
+
+        return $this;
+    }
+
+    /**
+     * Get object
+     *
+     * @return \AccueilBundle\Entity\Object
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+}

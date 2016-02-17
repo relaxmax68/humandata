@@ -8,7 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AccueilBundle\Entity\Analyse;
 use AccueilBundle\Form\AnalyseType;
-
+use AccueilBundle\Entity\Object;
+use AccueilBundle\Entity\Category;
 /**
  * Analyse controller.
  *
@@ -27,7 +28,6 @@ class AnalyseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $analyses = $em->getRepository('AccueilBundle:Analyse')->findAll();
-
         return $this->render('AccueilBundle:Analyse:index.html.twig', array(
             'analyses' => $analyses,
         ));
@@ -47,6 +47,8 @@ class AnalyseController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //var_dump($analyse);
+            //die();
             $em->persist($analyse);
             $em->flush();
 

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends "AccueilBundle:Analyse:layout.html.twig" %}
 
 {% block body %}
     <h1>Analyse list</h1>
@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
                 <th>Category</th>
+                <th>Object</th>
                 <th>Item</th>
                 <th>Link</th>
                 <th>Actions</th>
@@ -18,8 +18,8 @@
         {% for analyse in analyses %}
             <tr>
                 <td><a href="{{ path('administration_analyse_show', { 'id': analyse.id }) }}">{{ analyse.id }}</a></td>
-                <td>{{ analyse.name }}</td>
-                <td>{{ analyse.category }}</td>
+                <td>{{ analyse.category.name }}</td>
+                <td>{{ analyse.object.name }}</td>
                 <td>{{ analyse.item }}</td>
                 <td>{{ analyse.link }}</td>
                 <td>
