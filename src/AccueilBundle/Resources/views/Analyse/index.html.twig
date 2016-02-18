@@ -1,6 +1,15 @@
 {% extends "AccueilBundle:Analyse:layout.html.twig" %}
 
 {% block body %}
+
+    {% for analyse in analyses %}
+        {{ include("AccueilBundle:Analyse:etiquette.html.twig") }}
+    {% endfor %}
+
+    <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
+
+{% endblock %}
+{#}
     <table>
         <thead>
             <tr>
@@ -42,4 +51,4 @@
             <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
         </li>
     </ul>
-{% endblock %}
+{#}

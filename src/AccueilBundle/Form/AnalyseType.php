@@ -18,17 +18,17 @@ class AnalyseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('object',  EntityType::class,array('class'        => 'AccueilBundle:Object',
-                                                     'choice_label' => 'name',
-                                                     'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}
-                                                     ))
+            ->add('item',    TextType::class)
+            ->add('comment', TextType::class)
             ->add('category',EntityType::class,array('class'        => 'AccueilBundle:Category',
                                                      'choice_label' => 'name',
                                                      'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}
                                                      ))
-            ->add('item',    TextType::class)
-            ->add('link',    TextType::class,array('required' => false))
-            ->add('comment', TextType::class);
+            ->add('object',  EntityType::class,array('class'        => 'AccueilBundle:Object',
+                                                     'choice_label' => 'name',
+                                                     'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}
+                                                     ))
+            ->add('link',    TextType::class,array('required' => false));
     }
     
     /**
