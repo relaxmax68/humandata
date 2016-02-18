@@ -1,3 +1,11 @@
 tests_homepage:
-    path:     /
+    path:     /index
     defaults: { _controller: TestsBundle:Default:index }
+
+tests_animated_transition:
+    path:     /transition
+    defaults: { _controller: TestsBundle:Default:transition }
+
+tests_structure_bootstrap:
+    path:     /structure
+    defaults: { _controller: TestsBundle:Default:structure }

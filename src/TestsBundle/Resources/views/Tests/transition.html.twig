@@ -22,6 +22,7 @@
       <h1>Full Page Transition</h1>
       <a class="mainlink">TRY IT NOW &#10140;</a>
     </div>
+    <a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
   </div>
   
   <div id="next-page">
@@ -29,6 +30,7 @@
       <h1>Great! You're in the 2nd Page!</h1>
       <a class="nextlink"> &#8592 GO BACK</a>
     </div>
+    <a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
   </div>
 {% block javascripts %}  
   <script src="{{ asset('jquery-2.2.0.js') }}"></script>
@@ -39,6 +41,6 @@
 
 {% endblock %}
 
-  </body>
+</body>
 
 

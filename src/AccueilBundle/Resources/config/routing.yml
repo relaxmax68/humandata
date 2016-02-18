@@ -29,3 +29,7 @@ visites:
 analyse:
     path:     /administration/analyse
     defaults: { _controller: AccueilBundle:Analyse:index }
+
+tests:
+    path:     /administration/tests
+    defaults: { _controller: TestsBundle:Default:index }

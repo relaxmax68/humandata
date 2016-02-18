@@ -10,4 +10,12 @@ class DefaultController extends Controller
     {
         return $this->render('TestsBundle:Default:index.html.twig');
     }
+    public function transitionAction()
+    {
+        return $this->render('TestsBundle:Tests:transition.html.twig');
+    }    
+    public function structureAction()
+    {
+        return $this->render('TestsBundle:Tests:structure.html.twig');
+    }
 }
