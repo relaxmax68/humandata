@@ -23,6 +23,9 @@ message:
         id: \d+
 
 visites:
-    path:     /visites
+    path:     /administration/visites
     defaults: { _controller: AccueilBundle:Default:visites }
 
+analyse:
+    path:     /administration/analyse
+    defaults: { _controller: AccueilBundle:Analyse:index }

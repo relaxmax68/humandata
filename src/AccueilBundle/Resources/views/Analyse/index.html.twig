@@ -8,47 +8,6 @@
 
     <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
 
-{% endblock %}
-{#}
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Category</th>
-                <th>Object</th>
-                <th>Item</th>
-                <th>Link</th>
-                <th>Actions</th>
-                <th>Comment</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for analyse in analyses %}
-            <tr>
-                <td><a class="btn btn-primary" href="{{ path('administration_analyse_show', { 'id': analyse.id }) }}">{{ analyse.id }}</a></td>
-                <td>{{ analyse.category.name }}</td>
-                <td>{{ analyse.object.name }}</td>
-                <td>{{ analyse.item }}</td>
-                <td>{{ analyse.link }}</td>
-                <td>{{ analyse.comment }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a class="btn btn-primary" href="{{ path('administration_analyse_show', { 'id': analyse.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a class="btn btn-primary" href="{{ path('administration_analyse_edit', { 'id': analyse.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <a class="btn btn-primary" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
 
-    <ul>
-        <li>
-            <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
-        </li>
-    </ul>
-{#}
+{% endblock %}

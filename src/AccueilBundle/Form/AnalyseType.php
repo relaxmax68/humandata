@@ -19,7 +19,7 @@ class AnalyseType extends AbstractType
     {
         $builder
             ->add('item',    TextType::class)
-            ->add('comment', TextType::class)
+            ->add('comment', TextType::class,array('required' => false))
             ->add('category',EntityType::class,array('class'        => 'AccueilBundle:Category',
                                                      'choice_label' => 'name',
                                                      'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}

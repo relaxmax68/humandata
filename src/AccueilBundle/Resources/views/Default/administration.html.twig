@@ -8,6 +8,8 @@
 
 	{% if id == 3 %} 
 		<a class="btn btn-primary btn-xs" href="{{path('visites')}}">Aller vers la page</a>
+	{% elseif id == 1 %}
+		<a class="btn btn-primary btn-xs" href="{{path('analyse')}}">Aller vers la page</a>
 	{% else %}
 		<a class="btn btn-primary btn-xs" href="{{path('message')}}/{{id}}">Aller vers la page</a>
 	{% endif %}

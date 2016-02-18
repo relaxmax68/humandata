@@ -5,6 +5,7 @@
     {{ include("AccueilBundle:Analyse:etiquette.html.twig")}}
     <a class="btn btn-primary" href="{{ path('administration_analyse_edit', { 'id': analyse.id }) }}">Edit</a>
     <a class="btn btn-danger" href="{{ path('administration_analyse_delete', { 'id': analyse.id }) }}">Delete</a>
+    <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>    
     <a class="btn btn-primary" href="{{ path('administration_analyse_index') }}">Back to the list</a>
 
 {% endblock %}
