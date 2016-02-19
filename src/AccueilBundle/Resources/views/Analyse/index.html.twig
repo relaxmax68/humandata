@@ -2,9 +2,11 @@
 
 {% block body %}
 
+	<div class="row">
     {% for analyse in analyses %}
         {{ include("AccueilBundle:Analyse:etiquette.html.twig") }}
     {% endfor %}
+    </div>
 
     <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
 
