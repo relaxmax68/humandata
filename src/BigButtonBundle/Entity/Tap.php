@@ -41,9 +41,20 @@ class Tap
      */
     private $visite;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Object")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $object;
+
     public function __construct()
     {
         $this->date = new \Datetime();
+    }
+
+    public function __toString()
+    {
+        return $this->date->format("d:m:Y H:i:s");
     }
 
     /**
@@ -78,16 +89,6 @@ class Tap
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Affiche date
-     *
-     * @return String
-     */
-    public function afficheDate()
-    {
-        return $this->date->format("Y:m:d H:i:s");
     }
 
     /**
@@ -136,5 +137,29 @@ class Tap
     public function getVisite()
     {
         return $this->visite;
+    }
+
+    /**
+     * Set object
+     *
+     * @param \AccueilBundle\Entity\Object $object
+     *
+     * @return Tap
+     */
+    public function setObject(\AccueilBundle\Entity\Object $object = null)
+    {
+        $this->object = $object;
+
+        return $this;
+    }
+
+    /**
+     * Get object
+     *
+     * @return \AccueilBundle\Entity\Object
+     */
+    public function getObject()
+    {
+        return $this->object;
     }
 }

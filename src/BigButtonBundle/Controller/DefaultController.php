@@ -7,6 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use BigButtonBundle\Entity\Tap;
 use AccueilBundle\Entity\Visite;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\ORM\EntityRepository;
+
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -15,20 +20,32 @@ class DefaultController extends Controller
     }
     public function tapAction(Request $request)
     {
-		$session = $request->getSession();
-
 		$tap = new Tap();
-		$tap->setInfos("test");
 
-		$visite = $this->container->get('accueil.ip.listener')->getVisite(); 
-		$tap->setVisite($visite);
+    	// On crée le FormBuilder grâce au service form factory
+    	$form = $this->createFormBuilder($tap)
+		->add('object', EntityType::class,	array('class'=> 'AccueilBundle:Object',
+                      		                              'choice_label' => 'name',
+                                                          'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
+        ->add('infos',  TextareaType::class,array('required' => false))
+        ->add('tap',   SubmitType::class,  array('label'=>"TAP !"))
+		->getForm();
 
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($tap);
-   		$em->flush();
+		$form->handleRequest($request);
+    	if ($form->isSubmitted() && $form->isValid()) {
 
+			$visite = $this->container->get('accueil.ip.listener')->getVisite(); 
+			$tap->setVisite($visite);
 
-    	$session->getFlashBag()->add('info', $tap->afficheDate()." ENREGISTRÉE !!!");
-        return $this->render('BigButtonBundle:Default:index.html.twig');
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($tap);
+	   		$em->flush();
+
+			$session = $request->getSession();
+	    	$session->getFlashBag()->add('info', "Tap du ".$tap." ENREGISTRÉE !!!");
+
+		}
+
+	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
     }
 }
