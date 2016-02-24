@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
@@ -19,7 +20,7 @@ class AnalyseType extends AbstractType
     {
         $builder
             ->add('item',    TextType::class)
-            ->add('comment', TextType::class,array('required' => false))
+            ->add('comment', TextareaType::class,array('required' => false))
             ->add('category',EntityType::class,array('class'        => 'AccueilBundle:Category',
                                                      'choice_label' => 'name',
                                                      'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}

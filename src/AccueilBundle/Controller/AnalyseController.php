@@ -16,6 +16,8 @@ use AccueilBundle\Form\AnalyseType;
  */
 class AnalyseController extends Controller
 {
+    protected $lastCategory;
+    protected $lastObject;
     /**
      * Lists all Analyse entities.
      *
@@ -27,8 +29,13 @@ class AnalyseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $analyses = $em->getRepository('AccueilBundle:Analyse')->findAll();
+        $objects = $em->getRepository('AccueilBundle:Object')->findAll();
+        $categories = $em->getRepository('AccueilBundle:Category')->findAll();
+
         return $this->render('AccueilBundle:Analyse:index.html.twig', array(
             'analyses' => $analyses,
+            'objects' => $objects,
+            'categories' => $categories
         ));
     }
 
@@ -88,10 +95,14 @@ class AnalyseController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $lastCategory=$analyse.category.id;
+            $lastObject=$analyse.object.id;
+
             $em->persist($analyse);
             $em->flush();
 
-            return $this->redirectToRoute('administration_analyse_edit', array('id' => $analyse->getId()));
+            return $this->redirectToRoute('administration_analyse_index', array('id' => $analyse->getId()));
         }
 
         return $this->render('AccueilBundle:Analyse:edit.html.twig', array(

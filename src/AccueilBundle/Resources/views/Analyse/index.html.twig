@@ -2,14 +2,27 @@
 
 {% block body %}
 
+{% set o=0 %}
+{% for category in 0..3 %}
 	<div class="row">
-    {% for analyse in analyses %}
-        {{ include("AccueilBundle:Analyse:etiquette.html.twig") }}
-    {% endfor %}
-    </div>
+		<h3>{{categories[category].name}}</h3>
+		{% for object in 0..2 %}
+			{% set o=o+1 %}
+			<div class="col-md-4">
+				<h4>{{objects[o-1].name}}</h4>
+				{% for analyse in analyses %}
+			       	{% if analyse.object.id == o %}
+			        	{{ include("AccueilBundle:Analyse:etiquette.html.twig") }}
+		        	{% endif %}
+	        	{% endfor %}	
+		    </div>
+		{% endfor %}
+	</div>
+{% endfor %}
 
-    <a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
 
-    <a class="btn btn-primary" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
+<a class="btn btn-primary" href="{{ path('administration_analyse_new') }}">Create a new entry</a>
+
+<a class="btn btn-primary" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
 
 {% endblock %}

@@ -1,14 +1,10 @@
 {# main.css #}
 
-p{
-	color: red;
-}
-
 body {
   padding-top: 10px;
 }
 
-[class*="col-"], footer {
+[class*="col-lg-"], footer {
   background-color: lightgreen;
   border: 2px solid black;
   border-radius: 6px;
