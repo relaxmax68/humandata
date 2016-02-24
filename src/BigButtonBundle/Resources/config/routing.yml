@@ -2,6 +2,3 @@ big_button_homepage:
     path:     /
     defaults: { _controller: BigButtonBundle:Default:index }
 
-button_tap:
-    path:     /button
-    defaults: { _controller: BigButtonBundle:Default:tap}

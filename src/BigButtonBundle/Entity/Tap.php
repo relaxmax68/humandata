@@ -42,10 +42,10 @@ class Tap
     private $visite;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Object")
+     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Analyse")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $object;
+    private $analyse;
 
     public function __construct()
     {
@@ -140,26 +140,26 @@ class Tap
     }
 
     /**
-     * Set object
+     * Set Analyse
      *
-     * @param \AccueilBundle\Entity\Object $object
+     * @param \AccueilBundle\Entity\Analyse $analyse
      *
      * @return Tap
      */
-    public function setObject(\AccueilBundle\Entity\Object $object = null)
+    public function setAnalyse(\AccueilBundle\Entity\Analyse $analyse = null)
     {
-        $this->object = $object;
+        $this->analyse = $analyse;
 
         return $this;
     }
 
     /**
-     * Get object
+     * Get Analyse
      *
-     * @return \AccueilBundle\Entity\Object
+     * @return \AccueilBundle\Entity\Analyse
      */
-    public function getObject()
+    public function getAnalyse()
     {
-        return $this->object;
+        return $this->analyse;
     }
 }

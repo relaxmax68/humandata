@@ -14,19 +14,15 @@ use Doctrine\ORM\EntityRepository;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('BigButtonBundle:Default:index.html.twig');
-    }
-    public function tapAction(Request $request)
+    public function indexAction(Request $request)
     {
 		$tap = new Tap();
 
     	// On crée le FormBuilder grâce au service form factory
     	$form = $this->createFormBuilder($tap)
-		->add('object', EntityType::class,	array('class'=> 'AccueilBundle:Object',
-                      		                              'choice_label' => 'name',
-                                                          'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
+		->add('analyse', EntityType::class,	array('class'=> 'AccueilBundle:Analyse',
+                      		                                'choice_label' => 'item',
+                                                            'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
         ->add('infos',  TextareaType::class,array('required' => false))
         ->add('tap',   SubmitType::class,  array('label'=>"TAP !"))
 		->getForm();
@@ -42,7 +38,7 @@ class DefaultController extends Controller
 	   		$em->flush();
 
 			$session = $request->getSession();
-	    	$session->getFlashBag()->add('info', "Tap du ".$tap." ENREGISTRÉE !!!");
+	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
 
 		}
 
