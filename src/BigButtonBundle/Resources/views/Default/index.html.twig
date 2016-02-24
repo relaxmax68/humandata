@@ -1,0 +1,25 @@
+{% extends "::bootstrap.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('main.css') }}">
+{% endblock %}
+
+{% block title %}Tap !{% endblock %}
+
+{% block body %}
+
+	<p>
+      {# On affiche tous les messages flash dont le nom est « info » #}
+      {% for message in app.session.flashbag.get('info') %}
+        <p class="btn btn-info">{{ message }}</p>
+      {% endfor %}
+    </p>
+
+	<div class="row">
+			<a class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-8" role="button" href="{{path('button_tap')}}">Tap !</a>
+			<a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
+		</div>
+	</div>
+
+{% endblock %}
