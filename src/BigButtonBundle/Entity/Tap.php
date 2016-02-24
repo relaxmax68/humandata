@@ -46,6 +46,14 @@ class Tap
      * @ORM\JoinColumn(nullable=true)
      */
     private $analyse;
+    
+    /**
+     * @var boolean
+     * true = tâche en cours
+     *
+     * @ORM\Column(name="task", type="boolean")
+     */
+    private $task;
 
     public function __construct()
     {
@@ -161,5 +169,29 @@ class Tap
     public function getAnalyse()
     {
         return $this->analyse;
+    }
+
+    /**
+     * Set task
+     *
+     * @param boolean $task
+     *
+     * @return Tap
+     */
+    public function setTask($task)
+    {
+        $this->task = $task;
+
+        return $this;
+    }
+
+    /**
+     * Get task
+     *
+     * @return boolean
+     */
+    public function getTask()
+    {
+        return $this->task;
     }
 }

@@ -283,26 +283,4 @@ class Visite
 
         return $this;
     }
-
-    /**
-     * Set task
-     *
-     * @return Visite
-     */
-    public function setTask()
-    {
-        $this->task = !$this->task;
-
-        return $this;
-    }
-
-    /**
-     * Get task
-     *
-     * @return boolean
-     */
-    public function getTask()
-    {
-        return $this->task;
-    }
 }

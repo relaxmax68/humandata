@@ -30,15 +30,28 @@ class DefaultController extends Controller
 		$form->handleRequest($request);
     	if ($form->isSubmitted() && $form->isValid()) {
 
-			$visite = $this->container->get('accueil.ip.listener')->getVisite(); 
-			$tap->setVisite($visite);
-
+			$tap->setVisite($this->container->get('accueil.ip.listener')->getVisite());
+			$tap->getVisite()->setTask();
+			$tap->setTask($tap->getVisite()->getTask());
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($tap);
 	   		$em->flush();
 
 			$session = $request->getSession();
+
 	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
+
+	    	if($tap->getTask()){
+	    		$session->getFlashBag()->add('info', "ACTIVITÉ DÉMARRÉE");
+	    	}else{
+				// on cherche le dernier tap enregistré
+				$start=$em->getRepository('BigButtonBundle:Tap')->findOneByid(90);
+
+				$diff=date_diff($tap->getDate(),$start->getDate());
+
+				$session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
+	    		$session->getFlashBag()->add('info', "PAUSE");
+	    	}
 
 		}
 
