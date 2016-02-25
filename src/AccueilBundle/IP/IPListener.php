@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 class IPListener
 {
   protected $doctrine;
+  protected $visite;
 
   public function __construct($doctrine)
   {
@@ -31,28 +32,36 @@ class IPListener
       $ip = $_SERVER["REMOTE_ADDR"];
     }
     //on cherche une IP déjà enregistrée dans la BDD
-    $visite=$this->doctrine->getRepository('AccueilBundle:Visite')->findOneByipAddress($ip);
+    $this->visite=$this->doctrine->getRepository('AccueilBundle:Visite')->findOneByipAddress($ip);
     //si première visite on l'enregistre
-    if(empty($visite)){
-      $visite = new Visite();
-      $visite->setIpAddress($ip);
-      $visite->setDateLastVisit(new \datetime());
-      $visite->setAgent($_SERVER["HTTP_USER_AGENT"]);
-      $visite->setLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+    if(empty($this->visite)){
+      $this->visite = new Visite();
+      $this->visite->setIpAddress($ip);
+      $this->visite->setDateLastVisit(new \datetime());
+      $this->visite->setAgent($_SERVER["HTTP_USER_AGENT"]);
+      $this->visite->setLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
     }
     //Dans tous les cas on enregistre la date de dernière visite et on incrémente le compteur de visites
-    $visite->setDateLastVisit(new \datetime());
-    $visite->incVisit();
+    $this->visite->setDateLastVisit(new \datetime());
+    $this->visite->incVisit();
 
     //on teste si le visiteur s'est authentifié pour identifier sa visite
     //ne marche pas
     if(!empty($user)){
-      $visite->setIdentification($user->getUsername());
+      $this->visite->setIdentification($user->getUsername());
     }
 
-
-    $this->doctrine->persist($visite);
+    $this->doctrine->persist($this->visite);
     $this->doctrine->flush();
 
+  }
+  /**
+  * get Visite
+  *
+  * @return Visite
+  */
+  public function getVisite()
+  {
+    return $this->visite;
   }
 }

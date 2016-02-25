@@ -70,6 +70,14 @@ class Visite
      */
     private $language;
 
+    /**
+     * @var boolean
+     * true = tâche en cours
+     *
+     * @ORM\Column(name="task", type="boolean")
+     */
+    private $task;
+
     public function __construct()
     {
       $this->dateFirstVisit  = new \Datetime();
@@ -274,5 +282,27 @@ class Visite
         $this->nbVisit = $nbVisit;
 
         return $this;
+    }
+
+    /**
+     * Set task
+     *
+     * @return Visite
+     */
+    public function setTask()
+    {
+        $this->task = !$this->task;
+
+        return $this;
+    }
+
+    /**
+     * Get task
+     *
+     * @return boolean
+     */
+    public function getTask()
+    {
+        return $this->task;
     }
 }

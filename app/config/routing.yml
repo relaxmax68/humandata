@@ -22,3 +22,10 @@ tests:
     resource: "@TestsBundle/Resources/config/routing.yml"
     prefix:   /tests
 
+big_button:
+    resource: "@BigButtonBundle/Resources/config/routing.yml"
+    prefix:   /button
+
+big_bouton:
+    resource: "@BigButtonBundle/Resources/config/routing.yml"
+    prefix:   /bouton
