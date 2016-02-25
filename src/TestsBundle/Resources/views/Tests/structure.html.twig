@@ -2,7 +2,9 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('main.css') }}">
+	{% stylesheets '@AccueilBundle/Resources/public/css/*' filter='cssrewrite' %}
+    	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
 {% endblock %}
 
 {% block title %}Hello World{% endblock %}
@@ -12,27 +14,27 @@
     <p>Ce texte est affiché en HTML</p>
     <span id="texteJQ"></span>
 
-	<div class="row">
-		<div class="col-lg-1">logo</div>	
-		<div class="col-lg-offset-5 col-lg-2" >notifications</div>
-		<div class="col-lg-2">connexion</div>
-		<div class="col-lg-2">tableau</div>
+	<div class="row"> 
+		<div class="col-lg-1" id="contour">logo</div>	
+		<div class="col-lg-offset-5 col-lg-2" id="contour">notifications</div>
+		<div class="col-lg-2" id="contour">connexion</div>
+		<div class="col-lg-2" id="contour">tableau</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12">menu</div>
+		<div class="col-lg-12" id="contour">menu</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-2">menu</div>
-		<div class="col-lg-8">contenu</div>
-		<div class="col-lg-2">menu</div>
+		<div class="col-lg-2" id="contour">menu</div>
+		<div class="col-lg-8" id="contour">contenu</div>
+		<div class="col-lg-2" id="contour">menu</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12">slogan</div>
+		<div class="col-lg-12" id="contour">slogan</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-1">logo</div>
-		<div class="col-lg-2">réseaux sociaux</div>
-		<div class="col-lg-offset-4 col-2">Mentions légales</div>
+		<div class="col-lg-1" id="contour">logo</div>
+		<div class="col-lg-2" id="contour">réseaux sociaux</div>
+		<div class="col-lg-offset-4 col-2" id="contour">Mentions légales</div>
 	</div>
 
 	<a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
@@ -41,7 +43,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('jq-hello-world.js') }}"></script>
+    {% javascripts '@TestsBundle/Resources/public/js/*' %}
+    	<script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 
 
