@@ -12,7 +12,9 @@
 
   {% block stylesheets %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('main.css') }}">
+    {% stylesheets '@AccueilBundle/Resources/public/css/main.css' filter='cssrewrite' %}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
   {% endblock %}
 
   <link rel="icon" type="image/x-icon" href="{{ asset('humandataLogo.jpg') }}" />
