@@ -47,7 +47,11 @@ class DefaultController extends Controller
 				// on cherche le dernier tap enregistré
 				$start=$em->getRepository('BigButtonBundle:Tap')->findOneByid(90);
 
-				$diff=date_diff($tap->getDate(),$start->getDate());
+				if($start){
+					$diff=date_diff($tap->getDate(),$start->getDate());
+				}else{
+					$diff=date_diff($tap->getDate(),new \Datetime());
+				}
 
 				$session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
 	    		$session->getFlashBag()->add('info', "PAUSE");
