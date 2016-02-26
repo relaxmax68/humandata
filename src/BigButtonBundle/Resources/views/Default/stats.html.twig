@@ -1,0 +1,25 @@
+{% extends "::bootstrap.html.twig" %}
+
+{% block title %}Tap !{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+      <link rel="stylesheet" href= "{{ asset('/css/tap.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	<ul class="col-md-3" "list-group">
+
+	  {% for tap in taps %}
+	    <li class="list-group-item">{{ tap.id }}/{{ tap.task}}/{{tap.analyse.item}}</li>
+	  {% endfor %}
+
+	</ul>
+
+	<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
+</div>
+	
+{% endblock %}

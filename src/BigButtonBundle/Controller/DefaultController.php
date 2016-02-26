@@ -61,4 +61,14 @@ class DefaultController extends Controller
 
 	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
     }
+    public function statsAction()
+    {
+    	$repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('BigButtonBundle:Tap');
+
+        $taps = $repository->findAll();
+        return $this->render('BigButtonBundle:Default:stats.html.twig',array('taps' => $taps));
+    }
 }
