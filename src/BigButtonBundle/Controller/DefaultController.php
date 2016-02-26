@@ -68,7 +68,7 @@ class DefaultController extends Controller
             ->getManager()
             ->getRepository('BigButtonBundle:Tap');
 
-        $taps = $repository->findAll();
+        $taps = $repository->myFindAll();
         return $this->render('BigButtonBundle:Default:stats.html.twig',array('taps' => $taps));
     }
 }

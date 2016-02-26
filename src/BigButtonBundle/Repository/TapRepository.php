@@ -10,4 +10,11 @@ namespace BigButtonBundle\Repository;
  */
 class TapRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function myFindAll(){
+
+		return $this
+		    ->createQueryBuilder('t')
+		    ->getQuery()
+		    ->getResult();
+	}
 }
