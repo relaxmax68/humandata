@@ -2,6 +2,11 @@
 
 {% block title %}Tap !{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+      <link rel="stylesheet" href= "{{ asset('/css/tap.css') }}" />
+{% endblock %}
+
 {% block body %}
 
 	<p>

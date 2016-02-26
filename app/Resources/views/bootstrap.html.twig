@@ -12,11 +12,6 @@
 
   {% block stylesheets %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {% stylesheets output="css/compiled/main.css" filter='cssrewrite'
-        '@AccueilBundle/Resources/public/css/main.css'
-    %}
-      <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
   {% endblock %}
 
   <link rel="icon" type="image/x-icon" href="{{ asset('humandataLogo.jpg') }}" />

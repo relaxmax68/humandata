@@ -95,5 +95,6 @@ assetic:
     filters:
         cssrewrite: ~
     bundles:
-        - "AccueilBundle"
+        - "TestsBundle"
+        - "BigButtonBundle"
 
