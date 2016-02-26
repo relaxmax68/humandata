@@ -42,10 +42,10 @@ class DefaultController extends Controller
 	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
 
 	    	if($tap->getTask()){
-	    		$session->getFlashBag()->add('info', "ACTIVITÉ DÉMARRÉE");
+	    		$session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
 	    	}else{
 				// on cherche le dernier tap enregistré
-				$start=$em->getRepository('BigButtonBundle:Tap')->findOneByid(90);
+				$start=$em->getRepository('BigButtonBundle:Tap')->findOneByid($tap->getId()-1);
 
 				if($start){
 					$diff=date_diff($tap->getDate(),$start->getDate());
@@ -54,7 +54,7 @@ class DefaultController extends Controller
 				}
 
 				$session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
-	    		$session->getFlashBag()->add('info', "PAUSE");
+	    		$session->getFlashBag()->add('stop', "PAUSE");
 	    	}
 
 		}

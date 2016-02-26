@@ -13,9 +13,15 @@
 		    {{ form_errors(form) }}
 
 		    <div class="form-group">
-		        {# On affiche tous les messages flash dont le nom est « info » #}
+		        {# On affiche tous les messages flash dont le nom est « info » «start» «stop» #}
       			{% for message in app.session.flashbag.get('info') %}
         			<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-info">{{ message }}</p>
+      			{% endfor %}
+      			{% for message in app.session.flashbag.get('start') %}
+        			<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-success">{{ message }}</p>
+      			{% endfor %}
+      			{% for message in app.session.flashbag.get('stop') %}
+        			<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-danger">{{ message }}</p>
       			{% endfor %}
 		    </div>
 
@@ -34,7 +40,7 @@
 		    </div>
 
 		    <div class="form-group">
-		        {# On affiche tous les messages flash dont le nom est « info » #}
+		        {# On affiche tous les messages flash dont le nom est « duree » #}
       			{% for message in app.session.flashbag.get('duree') %}
         			<p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-info">{{ message }}</p>
       			{% endfor %}

@@ -94,3 +94,6 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+    bundles:
+        - "AccueilBundle"
+
