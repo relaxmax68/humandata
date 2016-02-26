@@ -2,6 +2,8 @@
 
 namespace BigButtonBundle\Repository;
 
+use AccueilBundle\Entity\Visite;
+
 /**
  * TapRepository
  *
@@ -14,6 +16,45 @@ class TapRepository extends \Doctrine\ORM\EntityRepository
 
 		return $this
 		    ->createQueryBuilder('t')
+		    ->getQuery()
+		    ->getResult();
+	}
+	public function myFindVisite( $visite, $start, $end ){
+
+		$qb = $this->createQueryBuilder('t');
+
+		$qb
+			->where('t.visite = :visite')
+			->setParameter('visite',$visite->getId())
+
+			->andWhere('t.date BETWEEN :start AND :end')
+			->setParameter('start', $start)
+	        ->setParameter('end',   $end);
+
+		return $qb
+		    ->getQuery()
+		    ->getResult();
+	}
+	public function myFindOne( $id ){
+
+		$qb = $this->createQueryBuilder('t');
+
+		$qb
+			->where( 't.id = :id' )
+			->setParameter('id', $id );
+
+		return $qb
+		    ->getQuery()
+		    ->getResult();
+	}
+	public function activeAll(){
+
+		$qb = $this->createQueryBuilder('t');
+
+	    $qb
+            ->where('t.task = true');
+
+		return $qb
 		    ->getQuery()
 		    ->getResult();
 	}

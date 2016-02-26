@@ -10,11 +10,17 @@
 {% block body %}
 
 <div class="row">
+		
 
-	<ul class="col-md-3" "list-group">
+<h1>Activités du {{ "now"|date("d/m/Y") }}</h1>
 
-	  {% for tap in taps %}
-	    <li class="list-group-item">{{ tap.id }}/{{ tap.task}}/{{tap.analyse.item}}</li>
+	<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12 list-group">
+
+	  {% for activite in activites %}
+	    <li class="list-group-item">
+			<div>Activités: {{ activite.nom }}</div>
+			<div>Durée: {{ activite.duree }}</div>
+	    </li>
 	  {% endfor %}
 
 	</ul>

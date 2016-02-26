@@ -68,7 +68,23 @@ class DefaultController extends Controller
             ->getManager()
             ->getRepository('BigButtonBundle:Tap');
 
-        $taps = $repository->myFindAll();
-        return $this->render('BigButtonBundle:Default:stats.html.twig',array('taps' => $taps));
+        $end  = new \Datetime();
+        $start= (new \Datetime())->setTime(0,0,0);
+
+        $taps = $repository->myFindVisite($this->container->get('accueil.ip.listener')->getVisite(),$start, $end);
+
+        $i=0;
+        $activites=array();
+        foreach ($taps as $element) {
+        	if(!$element->getTask()){
+        		$activites[$i]['nom']	= $element->getAnalyse()->getItem();
+         		$activites[$i]['duree']	= date_diff($start,$element->getDate())->format("%a jours %h heures %i minutes %s secondes");
+         	}else{
+         		$start=$element->getDate();
+         		$i=$i+1;
+         	}
+        }
+
+        return $this->render('BigButtonBundle:Default:stats.html.twig',array('activites' => $activites));
     }
 }
