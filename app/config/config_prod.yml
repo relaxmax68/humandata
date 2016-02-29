@@ -19,10 +19,24 @@ monolog:
         main:
             type:         fingers_crossed
             action_level: error
-            handler:      nested
-        nested:
-            type:  stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
-        console:
-            type:  console
+            handler:      grouped
+        grouped:
+            type:         group
+            members:      [streamed, swifted]
+        streamed:
+            type:         stream
+            path:         "%kernel.logs_dir%/%kernel.environment%.log"
+            level:        debug
+       swifted:
+            type:          swift_mailer
+            from_email:   'webmaster@humandata.info'
+            to_email:     'webmaster@humandata.info'
+            subject:      Oops
+            level:        debug
+        login:
+            type:          swift_mailer
+            from_email:   'webmaster@humandata.info'
+            to_email:     'webmaster@humandata.info'
+            subject:      Authentification sur Humandata.info
+            level:        info
+            channels:     security
