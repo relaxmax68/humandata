@@ -23,7 +23,11 @@ class DefaultController extends Controller
     // affiche tous les cookies enregistrés par le site
     public function cookiesAction()
     {
-        return $this->render('TestsBundle:Tests:cookies.html.twig');
+        $request = Request::createFromGlobals();
+
+        $cookies = var_dump($request->cookies);
+
+        return $this->render('TestsBundle:Tests:cookies.html.twig',array('cookies'=>$cookies));
     }
     // affiche le header envoyé par le site
     public function headerAction()
