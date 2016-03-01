@@ -9,3 +9,12 @@ tests_animated_transition:
 tests_structure_bootstrap:
     path:     /structure
     defaults: { _controller: TestsBundle:Default:structure }
+
+tests_cookies:
+    path:     /cookies
+    defaults: { _controller: TestsBundle:Default:cookies }
+
+tests_header:
+    path:     /header
+    defaults: { _controller: TestsBundle:Default:header }
+
