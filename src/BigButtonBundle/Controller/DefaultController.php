@@ -5,9 +5,13 @@ namespace BigButtonBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use BigButtonBundle\Entity\Tap;
-use AccueilBundle\Entity\Visite;
+use BigButtonBundle\Entity\User;
+use BigButtonBundle\Entity\Task;
+use BigButtonBundle\Form\TaskType;
+use BigButtonBundle\Form\UserType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
@@ -16,47 +20,82 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-		$tap = new Tap();
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
 
-    	// On crée le FormBuilder grâce au service form factory
-    	$form = $this->createFormBuilder($tap)
-		->add('analyse', EntityType::class,	array('class'=> 'AccueilBundle:Analyse',
-                      		                                'choice_label' => 'item',
+        //on cherche une IP déjà enregistrée dans la BDD tap_user grâce au service IPListener
+        $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+
+        //si première visite on l'enregistre
+        if(empty($user)){
+            $user = new User();
+            $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+            $lasttap = new Tap();
+            $lasttask = new Task();
+        }else{
+            $lasttap=$user->getLastTap();
+            $lasttask=$lasttap->getTask();
+        }
+        /*      ->add('task', EntityType::class,    array('class'=> 'BigButtonBundle:Task',
+                                                            'placeholder' => 'Choose an option',
                                                             'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
-        ->add('infos',  TextareaType::class,array('required' => false))
-        ->add('tap',   SubmitType::class,  array('label'=>"TAP !"))
-		->getForm();
+        */
+        $tap = new Tap(); 
+  
+        //informations sur l'état actuel des enregistrements
+        if($lasttap->getInProgress()){
+            $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
+        }else{
+            $diff=date_diff($tap->getDate(),$lasttap->getDate());
 
+            $session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
+            $session->getFlashBag()->add('stop', "PAUSE");
+        }
+
+        // On crée le FormBuilder grâce au service form factory
+        $form = $this->createFormBuilder($tap)
+        ->add('user',   UserType::class)
+        ->add('task',   TaskType::class)
+        ->add('infos',  TextareaType::class,array('required' => false))
+        ->add('tap',    SubmitType::class,  array('label'=>"TAP !"))
+        ->getForm();  
+
+        //traitement du formulaire
 		$form->handleRequest($request);
     	if ($form->isSubmitted() && $form->isValid()) {
+ 
+            //On vérifie qu'une tâche équivalente n'a pas déjà été enregistrée
+            if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
+                $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName()));
+                $tap->setInProgress();
+            }else{
+                $task=new Task();
+                $task->setName($tap->getTask()->getName());
+                $tap->setTask($task);
+                $em->persist($task);
+                $em->flush();
+            }
 
-			$tap->setVisite($this->container->get('accueil.ip.listener')->getVisite());
-			$tap->getVisite()->setTask();
-			$tap->setTask($tap->getVisite()->getTask());
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($tap);
+            //On vérifie qu'un utilisateur équivalent n'a pas déjà été enregistré
+            if($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName())){
+                $tap->setUser($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName()));
+            }else{
+                $user=new User();
+                $user->setName($tap->getUser()->getName());
+                $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+                $user->setLastTap($tap);
+                $tap->setUser($user);
+                $em->persist($user);
+                $em->flush();
+            }
+            
+            $tap->setUser($user);
+            $user->setLastTap($tap);
+            $em->persist($tap);
+            $em->persist($user);
 	   		$em->flush();
 
-			$session = $request->getSession();
-
 	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
-
-	    	if($tap->getTask()){
-	    		$session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
-	    	}else{
-				// on cherche le dernier tap enregistré
-				$start=$em->getRepository('BigButtonBundle:Tap')->findOneByid($tap->getId()-1);
-
-				if($start){
-					$diff=date_diff($tap->getDate(),$start->getDate());
-				}else{
-					$diff=date_diff($tap->getDate(),new \Datetime());
-				}
-
-				$session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
-	    		$session->getFlashBag()->add('stop', "PAUSE");
-	    	}
-
 		}
 
 	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));

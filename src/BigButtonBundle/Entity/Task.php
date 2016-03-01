@@ -1,16 +1,16 @@
 <?php
 
-namespace AccueilBundle\Entity;
+namespace BigButtonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Administration
+ * Task
  *
- * @ORM\Table(name="administration")
- * @ORM\Entity(repositoryClass="AccueilBundle\Repository\AdministrationRepository")
+ * @ORM\Table(name="task")
+ * @ORM\Entity(repositoryClass="BigButtonBundle\Repository\TaskRepository")
  */
-class Administration
+class Task
 {
     /**
      * @var int
@@ -24,10 +24,13 @@ class Administration
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
+    public function __toString(){
+        return $this->name;
+    }
 
     /**
      * Get id
@@ -44,7 +47,7 @@ class Administration
      *
      * @param string $name
      *
-     * @return Administration
+     * @return Task
      */
     public function setName($name)
     {

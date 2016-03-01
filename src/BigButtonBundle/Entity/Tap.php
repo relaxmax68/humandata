@@ -36,28 +36,29 @@ class Tap
     private $infos;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Visite", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $visite;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AccueilBundle\Entity\Analyse")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\Task")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $analyse;
+    private $task;
     
     /**
      * @var boolean
      * true = tâche en cours
      *
-     * @ORM\Column(name="task", type="boolean")
+     * @ORM\Column(name="inProgress", type="boolean")
      */
-    private $task;
+    private $inProgress;
 
     public function __construct()
     {
         $this->date = new \Datetime();
+        $this->inProgress = true;
     }
 
     public function __toString()
@@ -124,61 +125,37 @@ class Tap
     }
 
     /**
-     * Set visite
+     * Set user
      *
-     * @param \AccueilBundle\Entity\Visite $visite
+     * @param \BigButtonBundle\Entity\User $user
      *
      * @return Tap
      */
-    public function setVisite(\AccueilBundle\Entity\Visite $visite)
+    public function setUser(\BigButtonBundle\Entity\User $user)
     {
-        $this->visite = $visite;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get visite
+     * Get user
      *
-     * @return \AccueilBundle\Entity\Visite
+     * @return \BigButtonBundle\Entity\User
      */
-    public function getVisite()
+    public function getUser()
     {
-        return $this->visite;
+        return $this->user;
     }
 
     /**
-     * Set Analyse
+     * Set Task
      *
-     * @param \AccueilBundle\Entity\Analyse $analyse
+     * @param \BigButtonBundle\Entity\Task $task
      *
      * @return Tap
      */
-    public function setAnalyse(\AccueilBundle\Entity\Analyse $analyse = null)
-    {
-        $this->analyse = $analyse;
-
-        return $this;
-    }
-
-    /**
-     * Get Analyse
-     *
-     * @return \AccueilBundle\Entity\Analyse
-     */
-    public function getAnalyse()
-    {
-        return $this->analyse;
-    }
-
-    /**
-     * Set task
-     *
-     * @param boolean $task
-     *
-     * @return Tap
-     */
-    public function setTask($task)
+    public function setTask(\BigButtonBundle\Entity\Task $task = null)
     {
         $this->task = $task;
 
@@ -186,12 +163,34 @@ class Tap
     }
 
     /**
-     * Get task
+     * Get Task
      *
-     * @return boolean
+     * @return \BigButtonBundle\Entity\Task
      */
     public function getTask()
     {
         return $this->task;
+    }
+
+    /**
+     * Set inProgress
+     *
+     * @return Tap
+     */
+    public function setInProgress()
+    {
+        $this->inProgress = !$this->inProgress;
+
+        return $this;
+    }
+
+    /**
+     * Get inProgress
+     *
+     * @return boolean
+     */
+    public function getInProgress()
+    {
+        return $this->inProgress;
     }
 }

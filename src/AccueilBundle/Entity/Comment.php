@@ -129,5 +129,28 @@ class Comment
     {
         return $this->content;
     }
-}
 
+    /**
+     * Set project
+     *
+     * @param \AccueilBundle\Entity\Project $project
+     *
+     * @return Comment
+     */
+    public function setProject(\AccueilBundle\Entity\Project $project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \AccueilBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+}
