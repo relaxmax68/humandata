@@ -58,7 +58,7 @@ class Tap
     public function __construct()
     {
         $this->date = new \Datetime();
-        $this->inProgress = true;
+        $this->inProgress = false;
     }
 
     public function __toString()
@@ -175,11 +175,13 @@ class Tap
     /**
      * Set inProgress
      *
+     * @param boolean $state
+     *
      * @return Tap
      */
-    public function setInProgress()
+    public function setInProgress($state)
     {
-        $this->inProgress = !$this->inProgress;
+        $this->inProgress = $state;
 
         return $this;
     }

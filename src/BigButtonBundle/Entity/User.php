@@ -110,13 +110,13 @@ class User
     /**
      * Set lastTap
      *
-     * @param \stdClass $lastTap
+     * @param \stdClass $tap
      *
      * @return User
      */
-    public function setLastTap($lastTap)
+    public function setLastTap($tap)
     {
-        $this->lastTap = $lastTap;
+        $this->lastTap = $tap;
 
         return $this;
     }

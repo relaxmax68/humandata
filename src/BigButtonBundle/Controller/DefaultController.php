@@ -36,21 +36,13 @@ class DefaultController extends Controller
             $lasttap=$user->getLastTap();
             $lasttask=$lasttap->getTask();
         }
+        $tap = new Tap();
+        $tap->setInProgress($lasttap->getInProgress());
+
         /*      ->add('task', EntityType::class,    array('class'=> 'BigButtonBundle:Task',
                                                             'placeholder' => 'Choose an option',
                                                             'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
         */
-        $tap = new Tap(); 
-  
-        //informations sur l'état actuel des enregistrements
-        if($lasttap->getInProgress()){
-            $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
-        }else{
-            $diff=date_diff($tap->getDate(),$lasttap->getDate());
-
-            $session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
-            $session->getFlashBag()->add('stop', "PAUSE");
-        }
 
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createFormBuilder($tap)
@@ -63,19 +55,19 @@ class DefaultController extends Controller
         //traitement du formulaire
 		$form->handleRequest($request);
     	if ($form->isSubmitted() && $form->isValid()) {
- 
+            
+            $tap->setDate(new \Datetime());
+            $tap->setInProgress(!$tap->getInProgress());
+
             //On vérifie qu'une tâche équivalente n'a pas déjà été enregistrée
             if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
                 $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName()));
-                $tap->setInProgress();
             }else{
                 $task=new Task();
                 $task->setName($tap->getTask()->getName());
                 $tap->setTask($task);
                 $em->persist($task);
-                $em->flush();
             }
-
             //On vérifie qu'un utilisateur équivalent n'a pas déjà été enregistré
             if($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName())){
                 $tap->setUser($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName()));
@@ -83,20 +75,31 @@ class DefaultController extends Controller
                 $user=new User();
                 $user->setName($tap->getUser()->getName());
                 $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
-                $user->setLastTap($tap);
                 $tap->setUser($user);
                 $em->persist($user);
                 $em->flush();
             }
-            
-            $tap->setUser($user);
-            $user->setLastTap($tap);
+
             $em->persist($tap);
-            $em->persist($user);
 	   		$em->flush();
+            $user->setLastTap($tap);
+            $em->persist($user);
+            $em->flush();
 
 	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
 		}
+
+        $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());                                                    
+        //Une activité est-elle déjà en cours ?
+        if($tap->getInProgress()){
+            $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
+            // depuis : ".$lastdiff->format("%a jours %h heures %i minutes %s secondes"));
+        }else{
+            $session->getFlashBag()->add('stop', "En PAUSE");
+            // depuis : ".$lastdiff->format("%a jours %h heures %i minutes %s secondes"));
+            $diff=date_diff($tap->getDate(),$lasttap->getDate());
+            $session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
+        }
 
 	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
     }
