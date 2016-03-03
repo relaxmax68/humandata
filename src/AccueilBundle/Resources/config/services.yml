@@ -3,7 +3,7 @@ services:
         class: AccueilBundle\Beta\BetaHTML
     accueil.beta.listener:
         class: AccueilBundle\Beta\BetaListener
-        arguments: ["@accueil.beta.html", "01-09-2016"]
+        arguments: ["@accueil.beta.html", "2016-03-29"]
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: processBeta }
 
