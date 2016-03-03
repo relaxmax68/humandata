@@ -5,6 +5,8 @@ namespace TestsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use TestsBundle\Form\TestType;
+use TestsBundle\Entity\Test;
 
 class DefaultController extends Controller
 {
@@ -38,5 +40,22 @@ class DefaultController extends Controller
         $content=$request->getPathInfo();
 
         return $this->render('TestsBundle:Tests:header.html.twig',array('request'=>$request,'content'=>$content));
+    }
+    public function menuAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();  
+        //$testlist = $em->getRepository('TestsBundle:Test')->findAll();
+        $tests = new Test();
+
+        $form = $this->createForm(TestType::class,$tests);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($tests);
+            $em->flush();
+        }
+
+        var_dump($tests);   
+        return $this->render('TestsBundle:Tests:menu.html.twig',array('tests'=>$tests,'form' => $form->createView()));
     }
 }

@@ -1,0 +1,21 @@
+{# TestsBundle/Resources/views/form/fields.html.twig #}
+{% block form_row %}
+{% spaceless %}
+	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+
+       
+
+          <span class="input-group-btn">
+	        <button type="button" class="btn btn-default">{{ form_label(form) }}</button>
+	      </span>
+<div class="form-control">
+	              {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        </div>
+       	</div>
+   	</div>
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
