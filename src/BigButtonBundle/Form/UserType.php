@@ -16,9 +16,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',EntityType::class,array('class'        => 'BigButtonBundle:User',
-                                                 'label' => 'Utilisateur : ',
-                                                 'choice_label' => 'name'));
+            ->add('name');
     }
     
     /**

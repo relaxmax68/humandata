@@ -48,6 +48,10 @@ class User
 
         $this->setName("new user");
     }
+    public function __toString(){
+
+        return $this->name;
+    }
 
     /**
      * Get id

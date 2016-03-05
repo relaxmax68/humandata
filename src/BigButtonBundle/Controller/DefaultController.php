@@ -34,6 +34,7 @@ class DefaultController extends Controller
             $lasttask = new Task();
         }else{
             $lasttap=$user->getLastTap();
+            if(empty($lasttap)){$lasttap=new Tap();}
             $lasttask=$lasttap->getTask();
         }
         $tap = new Tap();
@@ -58,6 +59,7 @@ class DefaultController extends Controller
             
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
+            $tap->setOneShot(false);
 
             //On vérifie qu'une tâche équivalente n'a pas déjà été enregistrée
             if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
@@ -97,29 +99,36 @@ class DefaultController extends Controller
         }else{
             $session->getFlashBag()->add('stop', "En PAUSE");
             // depuis : ".$lastdiff->format("%a jours %h heures %i minutes %s secondes"));
-            $diff=date_diff($tap->getDate(),$lasttap->getDate());
-            $session->getFlashBag()->add('duree', "La dernière activité a duré : ".$diff->format("%a jours %h heures %i minutes %s secondes"));
+            $diff=$tap->formatDuree($lasttap);
+            $session->getFlashBag()->add('duree', "La dernière activité a duré ".$diff);
         }
 
 	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
     }
     public function statsAction()
     {
-    	$repository = $this
+    	$repositoryTap = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('BigButtonBundle:Tap');
 
+        $repositoryUser = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('BigButtonBundle:User');
+
         $end  = new \Datetime();
         $start= (new \Datetime())->setTime(0,0,0);
 
-        $taps = $repository->myFindVisite($this->container->get('accueil.ip.listener')->getVisite(),$start, $end);
+        $user=$repositoryUser->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+
+        $taps = $repositoryTap->myFindUser($user,$start, $end);
 
         $i=0;
         $activites=array();
         foreach ($taps as $element) {
-        	if(!$element->getTask()){
-        		$activites[$i]['nom']	= $element->getAnalyse()->getItem();
+        	if($element->getTask()){
+        		$activites[$i]['nom']	= $element->getTask()->getName();
          		$activites[$i]['duree']	= date_diff($start,$element->getDate())->format("%a jours %h heures %i minutes %s secondes");
          	}else{
          		$start=$element->getDate();

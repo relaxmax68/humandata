@@ -227,4 +227,30 @@ class Tap
     {
         return $this->oneShot;
     }
+
+    /**
+     *  Formatte une durée en fonction de son ordre de grandeur
+     *
+     * @param Tap
+     *
+     * @return string
+     */
+    public function formatDuree(Tap $debut){
+
+        $diff=$this->date->diff($debut->getDate());
+        if($diff->d==0){
+            if($diff->h==0){
+                if($diff->i==0){
+                    $duree="moins d'une minute";
+                }else{
+                    $duree=$diff->format("%i minutes %s secondes");
+                }
+            }else{
+                $duree=$diff->format("%h heures %i minutes %s secondes");
+            }
+        }else{
+            $duree=$diff->format("%a jours %h heures %i minutes %s secondes");
+        }
+        return $duree;
+    }
 }

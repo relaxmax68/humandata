@@ -16,9 +16,7 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',EntityType::class,array('class'        => 'BigButtonBundle:Task',
-                                                 'label' => 'Tâche : ',
-                                                 'choice_label' => 'name'));
+            ->add('name');
     }
     
     /**
