@@ -55,6 +55,14 @@ class Tap
      */
     private $inProgress;
 
+    /**
+     * @var boolean
+     * true = évènement ponctuel
+     *
+     * @ORM\Column(name="oneShot", type="boolean")
+     */
+    private $oneShot;
+
     public function __construct()
     {
         $this->date = new \Datetime();
@@ -194,5 +202,29 @@ class Tap
     public function getInProgress()
     {
         return $this->inProgress;
+    }
+
+    /**
+     * Set oneShot
+     *
+     * @param boolean $oneShot
+     *
+     * @return Tap
+     */
+    public function setOneShot($oneShot)
+    {
+        $this->oneShot = $oneShot;
+
+        return $this;
+    }
+
+    /**
+     * Get oneShot
+     *
+     * @return boolean
+     */
+    public function getOneShot()
+    {
+        return $this->oneShot;
     }
 }
