@@ -12,6 +12,7 @@ use BigButtonBundle\Form\UserType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
@@ -47,10 +48,10 @@ class DefaultController extends Controller
 
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createFormBuilder($tap)
-        ->add('user',   UserType::class)
-        ->add('task',   TaskType::class)
-        ->add('infos',  TextareaType::class,array('required' => false))
-        ->add('tap',    SubmitType::class,  array('label'=>"TAP !"))
+        ->add('user',    UserType::class)
+        ->add('task',    TaskType::class)
+        ->add('infos',   TextareaType::class,array('required' => false))
+        ->add('tap',     SubmitType::class,  array('label'    => "TAP !"))
         ->getForm();  
 
         //traitement du formulaire
@@ -59,7 +60,6 @@ class DefaultController extends Controller
             
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
-            $tap->setOneShot(false);
 
             //On vérifie qu'une tâche équivalente n'a pas déjà été enregistrée
             if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
@@ -99,8 +99,8 @@ class DefaultController extends Controller
         }else{
             $session->getFlashBag()->add('stop', "En PAUSE");
             // depuis : ".$lastdiff->format("%a jours %h heures %i minutes %s secondes"));
-            $diff=$tap->formatDuree($lasttap);
-            $session->getFlashBag()->add('duree', "La dernière activité a duré ".$diff);
+            $diff=$tap->formatDuree($lasttap->getDate());
+            $session->getFlashBag()->add('duree', "La dernière activité ".$diff);
         }
 
 	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
@@ -122,14 +122,16 @@ class DefaultController extends Controller
 
         $user=$repositoryUser->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
 
-        $taps = $repositoryTap->myFindUser($user,$start, $end);
+        $taps = $repositoryTap->myFindUserOnDuration($user,$start, $end);
 
         $i=0;
         $activites=array();
         foreach ($taps as $element) {
-        	if($element->getTask()){
-        		$activites[$i]['nom']	= $element->getTask()->getName();
-         		$activites[$i]['duree']	= date_diff($start,$element->getDate())->format("%a jours %h heures %i minutes %s secondes");
+        	if($element->getInProgress()){
+        		$activites[$i]['nom']	  = $element->getTask()->getName();
+         		$activites[$i]['duree']	  = $element->formatDuree($start);
+                $activites[$i]['i']       = $i;
+                $activites[$i]['top']     = $element->getTop();
          	}else{
          		$start=$element->getDate();
          		$i=$i+1;

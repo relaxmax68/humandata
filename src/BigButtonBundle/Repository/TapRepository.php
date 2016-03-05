@@ -19,7 +19,7 @@ class TapRepository extends \Doctrine\ORM\EntityRepository
 		    ->getQuery()
 		    ->getResult();
 	}
-	public function myFindUser( $user, $start, $end ){
+	public function myFindUserOnDuration( $user, $start, $end ){
 
 		$qb = $this->createQueryBuilder('t');
 

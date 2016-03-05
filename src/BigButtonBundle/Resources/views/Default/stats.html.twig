@@ -14,13 +14,19 @@
 
 <h1>Activités du {{ "now"|date("d/m/Y") }}</h1>
 
-	<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12 list-group">
+	<ul class="col-xs-10 col-sm-8 col-md-6 col-lg-6 list-group">
 
 	  {% for activite in activites %}
-	    <li class="list-group-item">
-			<div>Activités: {{ activite.nom }}</div>
-			<div>Durée: {{ activite.duree }}</div>
-	    </li>
+	  	{% if activite.top %}
+	  			<p class="bg-primary"><strong>{{ activite.nom }}</strong></p>
+	  	{% else %}
+	  		<blockquote {% if activite.i is odd %}class="blockquote-reverse"{% endif %} >
+			    <div class="list-group-item">
+					<h3><strong>{{ activite.nom }}</strong></h3>
+					<footer><cite>{{ activite.duree }}</cite></footer>
+			    </div>
+		   	</blockquote>
+		{% endif %}
 	  {% endfor %}
 
 	</ul>

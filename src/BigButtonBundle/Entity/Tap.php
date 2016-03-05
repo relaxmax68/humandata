@@ -59,14 +59,15 @@ class Tap
      * @var boolean
      * true = évènement ponctuel
      *
-     * @ORM\Column(name="oneShot", type="boolean")
+     * @ORM\Column(name="top", type="boolean")
      */
-    private $oneShot;
+    private $top;
 
     public function __construct()
     {
         $this->date = new \Datetime();
         $this->inProgress = false;
+        $this->top = false;
     }
 
     public function __toString()
@@ -205,52 +206,51 @@ class Tap
     }
 
     /**
-     * Set oneShot
+     *  Formatte une durée en fonction de son ordre de grandeur
      *
-     * @param boolean $oneShot
+     * @param \Datetime
+     *
+     * @return string
+     */
+    public function formatDuree(\Datetime $debut){
+
+        $diff=$this->date->diff($debut);
+        if($diff->d==0){
+            if($diff->h==0){
+                if($diff->i==0){
+                    $duree="a été enregistrée comme un TOP";
+                    $this->setTop();
+                }else{
+                    $duree=$diff->format("a duré %i minutes %s secondes");
+                }
+            }else{
+                $duree=$diff->format("a duré %h heures %i minutes %s secondes");
+            }
+        }else{
+            $duree=$diff->format("a duré %a jours %h heures %i minutes %s secondes");
+        }
+        return $duree;
+    }
+
+    /**
+     * Set top
+     *
+     * @param boolean $state
      *
      * @return Tap
      */
-    public function setOneShot($oneShot)
-    {
-        $this->oneShot = $oneShot;
-
+    public function setTop(){
+        $this->top = true;
         return $this;
     }
 
     /**
-     * Get oneShot
+     * Get top
      *
      * @return boolean
      */
-    public function getOneShot()
+    public function getTop()
     {
-        return $this->oneShot;
-    }
-
-    /**
-     *  Formatte une durée en fonction de son ordre de grandeur
-     *
-     * @param Tap
-     *
-     * @return string
-     */
-    public function formatDuree(Tap $debut){
-
-        $diff=$this->date->diff($debut->getDate());
-        if($diff->d==0){
-            if($diff->h==0){
-                if($diff->i==0){
-                    $duree="moins d'une minute";
-                }else{
-                    $duree=$diff->format("%i minutes %s secondes");
-                }
-            }else{
-                $duree=$diff->format("%h heures %i minutes %s secondes");
-            }
-        }else{
-            $duree=$diff->format("%a jours %h heures %i minutes %s secondes");
-        }
-        return $duree;
+        return $this->top;
     }
 }
