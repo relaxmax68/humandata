@@ -16,7 +16,10 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name');
+            ->add('task', EntityType::class,array('class'=> 'BigButtonBundle:Task',
+                                                            'placeholder' => 'Choose an option',
+                                                            'query_builder'=> function (EntityRepository $er)
+                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}));
     }
     
     /**

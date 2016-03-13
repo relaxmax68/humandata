@@ -58,4 +58,8 @@ class DefaultController extends Controller
         var_dump($tests);   
         return $this->render('TestsBundle:Tests:menu.html.twig',array('tests'=>$tests,'form' => $form->createView()));
     }
+    public function tabAction()
+    {
+        return $this->render('TestsBundle:Tests:tab.html.twig');
+    }
 }

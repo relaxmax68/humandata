@@ -21,3 +21,7 @@ tests_header:
 tests_menu:
     path:     /menu
     defaults: { _controller: TestsBundle:Default:menu }
+
+tests_tab:
+    path:     /tab
+    defaults: { _controller: TestsBundle:Default:tab }

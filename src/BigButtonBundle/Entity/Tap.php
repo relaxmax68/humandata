@@ -72,7 +72,7 @@ class Tap
 
     public function __toString()
     {
-        return $this->date->format("d:m:Y H:i:s");
+        return $this->date->format("d/m/Y H:i:s");
     }
 
     /**

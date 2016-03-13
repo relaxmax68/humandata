@@ -41,18 +41,22 @@ class DefaultController extends Controller
         $tap = new Tap();
         $tap->setInProgress($lasttap->getInProgress());
 
-        /*      ->add('task', EntityType::class,    array('class'=> 'BigButtonBundle:Task',
-                                                            'placeholder' => 'Choose an option',
-                                                            'query_builder'=> function (EntityRepository $er) {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
-        */
-
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createFormBuilder($tap)
-        ->add('user',    UserType::class)
-        ->add('task',    TaskType::class)
+        ->add('user', EntityType::class,array('class'=> 'BigButtonBundle:User',
+                                                            'placeholder' => 'Choose an option',
+                                                            'query_builder'=> function (EntityRepository $er)
+                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
+        ->add('task', EntityType::class,array('class'=> 'BigButtonBundle:Task',
+                                                            'placeholder' => 'Choose an option',
+                                                            'query_builder'=> function (EntityRepository $er)
+                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
         ->add('infos',   TextareaType::class,array('required' => false))
         ->add('tap',     SubmitType::class,  array('label'    => "TAP !"))
-        ->getForm();  
+        ->getForm();
+
+        //$formBuilder = $this->get('form.factory')->createBuilder('form', $user);
+        //$formBuilder = $this->get('form.factory')->createBuilder('form', $task);
 
         //traitement du formulaire
 		$form->handleRequest($request);

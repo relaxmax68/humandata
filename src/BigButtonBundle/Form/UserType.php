@@ -16,7 +16,10 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name');
+            ->add('user', EntityType::class,array('class'=> 'BigButtonBundle:User',
+                                                            'placeholder' => 'Choose an option',
+                                                            'query_builder'=> function (EntityRepository $er)
+                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}));
     }
     
     /**
