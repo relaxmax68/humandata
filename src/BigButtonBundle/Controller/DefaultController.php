@@ -143,23 +143,53 @@ class DefaultController extends Controller
     }
     public function addAction(Request $request){
 
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+
         $cookie = explode(':',$request->cookies->get('ajout'));
 
         if($cookie[0]=="user"){
-            $ajout = new User();
-            $ajout->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+
+            $repositoryUser = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('BigButtonBundle:User');
+            //on vérifie qu'un enregistrement identique n'existe pas déjà
+            $ajout=$repositoryUser->findOneByName($cookie[1]);
+            if(empty($ajout)){
+                $ajout = new User();
+                $ajout->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+            }else{
+                $session->getFlashBag()->add('erreur', "L'utilisateur « ".$cookie[1]." » est déjà enregistré !!!");
+            }
         }
         if($cookie[0]=="task"){
-            $ajout = new Task();
+
+            $repositoryTask = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('BigButtonBundle:Task');
+            //on vérifie qu'un enregistrement identique n'existe pas déjà
+            $ajout=$repositoryTask->findOneByName($cookie[1]);
+            if(empty($ajout)){
+                $ajout = new Task();
+            }else{
+                $session->getFlashBag()->add('erreur', "La tâche « ".$cookie[1]." » est déjà enregistrée !!!");
+            }
         }
 
         $ajout->setName($cookie[1]);
 
         //enregistrement en BDD
-        $em = $this->getDoctrine()->getManager();
         $em->persist($ajout);
         $em->flush();
         
+        //on affiche la nouvelle valeur dans le formulaire
+        //
+        //
+        //
+        //
+
         //retour au formulaire
         return $this->redirectToRoute('big_button_homepage');
     }
