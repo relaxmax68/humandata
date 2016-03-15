@@ -5,3 +5,7 @@ big_button_homepage:
 big_stats:
     path:     /stats 
     defaults: { _controller: BigButtonBundle:Default:stats }
+
+big_button_add:
+    path:     /add 
+    defaults: { _controller: BigButtonBundle:Default:add }

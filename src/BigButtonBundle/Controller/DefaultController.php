@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use BigButtonBundle\Entity\Tap;
 use BigButtonBundle\Entity\User;
 use BigButtonBundle\Entity\Task;
-use BigButtonBundle\Form\TaskType;
-use BigButtonBundle\Form\UserType;
+use BigButtonBundle\Form\FormTap;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -44,19 +44,16 @@ class DefaultController extends Controller
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createFormBuilder($tap)
         ->add('user', EntityType::class,array('class'=> 'BigButtonBundle:User',
-                                                            'placeholder' => 'Choose an option',
+                                                            'placeholder' => 'Choose an user',
                                                             'query_builder'=> function (EntityRepository $er)
                                                             {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
         ->add('task', EntityType::class,array('class'=> 'BigButtonBundle:Task',
-                                                            'placeholder' => 'Choose an option',
+                                                            'placeholder' => 'Choose a task',
                                                             'query_builder'=> function (EntityRepository $er)
                                                             {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
-        ->add('infos',   TextareaType::class,array('required' => false))
-        ->add('tap',     SubmitType::class,  array('label'    => "TAP !"))
+        ->add('infos',TextareaType::class,array('required' => false))
+        ->add('tap',  SubmitType::class,  array('label'    => "TAP !"))
         ->getForm();
-
-        //$formBuilder = $this->get('form.factory')->createBuilder('form', $user);
-        //$formBuilder = $this->get('form.factory')->createBuilder('form', $task);
 
         //traitement du formulaire
 		$form->handleRequest($request);
@@ -143,5 +140,27 @@ class DefaultController extends Controller
         }
 
         return $this->render('BigButtonBundle:Default:stats.html.twig',array('activites' => $activites));
+    }
+    public function addAction(Request $request){
+
+        $cookie = explode(':',$request->cookies->get('ajout'));
+
+        if($cookie[0]=="user"){
+            $ajout = new User();
+            $ajout->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+        }
+        if($cookie[0]=="task"){
+            $ajout = new Task();
+        }
+
+        $ajout->setName($cookie[1]);
+
+        //enregistrement en BDD
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($ajout);
+        $em->flush();
+        
+        //retour au formulaire
+        return $this->redirectToRoute('big_button_homepage');
     }
 }
