@@ -2,11 +2,6 @@
 
 {% block title %}Tap !{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-      <link rel="stylesheet" href= "{{ asset('/css/tap.css') }}" />
-{% endblock %}
-
 {% block body %}
 
 	<div class="row">
@@ -126,9 +121,4 @@
 		{{ form_end(form) }}
 	</div>
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('/js/tap.js') }}"></script>
 {% endblock %}

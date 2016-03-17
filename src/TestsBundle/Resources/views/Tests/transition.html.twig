@@ -1,38 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>AnimatedTransition</title>
+{% extends "::bootstrap.html.twig" %}
 
-  {% block stylesheets %}
-      <link rel="stylesheet" href= "{{ asset('/css/animatedTransition.css') }}" />
-  {% endblock %}
+{% block title %}Transition{% endblock %}
 
-  </head>
+{% block body %}
 
-  <body>
+    <h3>AnimatedTransition</h3>
  
-  <div id="main-page">
-  <!--- Main Content Here -->
-    <div class="maincontent">
-      <h1>Full Page Transition</h1>
-      <a class="mainlink">TRY IT NOW &#10140;</a>
+    <div id="main-page">
+    <!--- Main Content Here -->
+      <div class="maincontent">
+        <h1>Full Page Transition</h1>
+        <a class="mainlink">TRY IT NOW &#10140;</a>
+      </div>
+      <a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
     </div>
-    <a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
-  </div>
-  
-  <div id="next-page">
-    <div class="nextcontent">
-      <h1>Great! You're in the 2nd Page!</h1>
-      <a class="nextlink"> &#8592 GO BACK</a>
+    
+    <div id="next-page">
+      <div class="nextcontent">
+        <h1>Great! You're in the 2nd Page!</h1>
+        <a class="nextlink"> &#8592 GO BACK</a>
+      </div>
+      <a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
     </div>
-    <a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
-  </div>
-{% block javascripts %}
-    <script src="http://code.jquery.com/jquery.min.js"></script>
-    <script src="{{ asset('/js/animatedTransition.js') }}"></script>
-{% endblock %}
 
-</body>
+{% endblock %}
 
 

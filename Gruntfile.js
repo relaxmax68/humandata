@@ -8,18 +8,6 @@ grunt.initConfig({
         // 2. la configuration pour la concaténation va ici.
         dist: {
 	        src: [
-	            'src/AccueilBundle/Resources/public/css/*.css',
-	            'src/TestsBundle/Resources/public/css/*.css',
-	            'src/BigButtonBundle/Resources/public/css/*.css',
-	        ],
-	        dest: 'web/build/production.css'
-	    }
-    },
-
-    concat: {
-        // 2. la configuration pour la concaténation va ici.
-        dist: {
-	        src: [
 	            'src/AccueilBundle/Resources/public/js/*.js',
 	            'src/TestsBundle/Resources/public/js/*.js',
 	            'src/BigButtonBundle/Resources/public/js/*.js',
@@ -32,16 +20,31 @@ grunt.initConfig({
 	    build: {
 	        src: 'web/build/production.js',
 	        dest:'web/build/production.min.js'
-    }
-}
+	    }
+    },
+
+	cssmin: {
+	  target: {
+	    files: [{
+        src: [
+            'src/AccueilBundle/Resources/public/css/*.css',
+            'src/TestsBundle/Resources/public/css/*.css',
+            'src/BigButtonBundle/Resources/public/css/*.css',
+        ],
+        dest: 'web/build/production.css',
+	    ext: '.min.css'
+	    }]
+	  }
+	},
 
 });
 
 // 3. Nous disons à Grunt que nous voulons utiliser ce plug-in.
 grunt.loadNpmTasks('grunt-contrib-concat');
 grunt.loadNpmTasks('grunt-contrib-uglify');
+grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 // 4. Nous disons à Grunt quoi faire lorsque nous tapons "grunt" dans la console.
-grunt.registerTask('default', ['concat', 'uglify']);
+grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
 
 };
