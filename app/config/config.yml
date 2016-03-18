@@ -107,16 +107,7 @@ easy_admin:
         - AccueilBundle\Entity\Project
         - AccueilBundle\Entity\Comment
         - UserBundle\Entity\User
-
-assetic:
-    debug:              '%kernel.debug%'
-    use_controller:
-        enabled:        '%kernel.debug%'
-        profiler:       false
-    write_to:           '%kernel.root_dir%/../web'
-    filters:
-        cssrewrite:     ~
-    bundles:
-                        - "TestsBundle"
-                        - "BigButtonBundle"
+        - BigButtonBundle\Entity\Tap
+        - BigButtonBundle\Entity\Task
+        - BigButtonBundle\Entity\User
 

@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new TestsBundle\TestsBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new BigButtonBundle\BigButtonBundle(),
         );
 
