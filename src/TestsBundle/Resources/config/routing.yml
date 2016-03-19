@@ -25,3 +25,7 @@ tests_menu:
 tests_tab:
     path:     /tab
     defaults: { _controller: TestsBundle:Default:tab }
+
+tests_calendar:
+    path:     /calendar
+    defaults: { _controller: TestsBundle:Default:calendar }

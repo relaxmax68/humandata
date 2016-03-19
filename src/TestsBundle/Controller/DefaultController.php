@@ -62,4 +62,8 @@ class DefaultController extends Controller
     {
         return $this->render('TestsBundle:Tests:tab.html.twig');
     }
+    public function calendarAction()
+    {
+        return $this->render('TestsBundle:Tests:calendar.html.twig');
+    }
 }
