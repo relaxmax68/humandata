@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use TestsBundle\Form\TestType;
 use TestsBundle\Entity\Test;
 
+use ADesigns\CalendarBundle\Entity\EventEntity;
+use ADesigns\CalendarBundle\Event\CalendarEvent;
+
 class DefaultController extends Controller
 {
     public function indexAction()
