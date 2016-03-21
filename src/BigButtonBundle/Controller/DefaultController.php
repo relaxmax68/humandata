@@ -25,7 +25,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //on cherche une IP déjà enregistrée dans la BDD tap_user grâce au service IPListener
-        $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+        $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByiPAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
 
         //si première visite on l'enregistre
         if(empty($user)){
