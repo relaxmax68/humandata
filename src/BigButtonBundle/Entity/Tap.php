@@ -3,6 +3,7 @@
 namespace BigButtonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Event;
 
 /**
  * Tap
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tap")
  * @ORM\Entity(repositoryClass="BigButtonBundle\Repository\TapRepository")
  */
-class Tap
+class Tap extends Event
 {
     /**
      * @var int
