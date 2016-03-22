@@ -40,10 +40,6 @@ class DefaultController extends Controller
             $lasttask=$lasttap->getTask();
         }
 
-        //si c'est une activité qui vient d'être crée alors elle s'affiche par défaut
-
-
-
         $tap = new Tap();
         $tap->setUser($user);
         $tap->setTask($lasttask);
@@ -60,27 +56,13 @@ class DefaultController extends Controller
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
 
-            //On vérifie qu'une tâche équivalente n'a pas déjà été enregistrée
-            if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
+            //On vérifie qu'une tâche équivalente n'a pas déjà été commencée
+
+            /*if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
                 $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName()));
-            }else{
-                $task=new Task();
-                $task->setName($tap->getTask()->getName());
-                $tap->setTask($task);
-                $em->persist($task);
-            }
-            //On vérifie qu'un utilisateur équivalent n'a pas déjà été enregistré
-            if($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName())){
-                $tap->setUser($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName()));
-                $em->detach($user->getLastTap()->getTask());
-            }else{
-                $user=new User();
-                $user->setName($tap->getUser()->getName());
-                $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
-                $tap->setUser($user);
-                $em->persist($user);
-                $em->flush();
-            }
+            }*/
+
+            $em->detach($user->getLastTap()->getTask());
             $user->setLastTap($tap);
             $em->flush();
 
@@ -181,12 +163,6 @@ class DefaultController extends Controller
         //enregistrement en BDD
         $em->persist($ajout);
         $em->flush();
-        
-        //on affiche la nouvelle valeur dans le formulaire
-        //
-        //
-        //
-        //
 
         //retour au formulaire
         return $this->redirectToRoute('big_button_homepage');
