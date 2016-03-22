@@ -11,7 +11,7 @@ use AppBundle\Entity\Event;
  * @ORM\Table(name="tap")
  * @ORM\Entity(repositoryClass="BigButtonBundle\Repository\TapRepository")
  */
-class Tap extends Event
+class Tap // extends Event
 {
     /**
      * @var int
@@ -43,7 +43,7 @@ class Tap extends Event
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\Task")
+     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\Task",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $task;

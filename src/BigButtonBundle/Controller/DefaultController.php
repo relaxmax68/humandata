@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use BigButtonBundle\Entity\Tap;
 use BigButtonBundle\Entity\User;
 use BigButtonBundle\Entity\Task;
-use BigButtonBundle\Form\FormTap;
+use BigButtonBundle\Form\TapType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,35 +25,33 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //on cherche une IP déjà enregistrée dans la BDD tap_user grâce au service IPListener
-        $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByiPAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+        $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
 
-        //si première visite on l'enregistre
+        //si première visite on l'enregistre et on l'affiche par défaut
         if(empty($user)){
             $user = new User();
             $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
             $lasttap = new Tap();
             $lasttask = new Task();
+            $em->persist($user);
         }else{
             $lasttap=$user->getLastTap();
             if(empty($lasttap)){$lasttap=new Tap();}
             $lasttask=$lasttap->getTask();
         }
+
+        //si c'est une activité qui vient d'être crée alors elle s'affiche par défaut
+
+
+
         $tap = new Tap();
+        $tap->setUser($user);
+        $tap->setTask($lasttask);
         $tap->setInProgress($lasttap->getInProgress());
+        $em->persist($tap);
 
         // On crée le FormBuilder grâce au service form factory
-        $form = $this->createFormBuilder($tap)
-        ->add('user', EntityType::class,array('class'=> 'BigButtonBundle:User',
-                                                            'placeholder' => 'Choose an user',
-                                                            'query_builder'=> function (EntityRepository $er)
-                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
-        ->add('task', EntityType::class,array('class'=> 'BigButtonBundle:Task',
-                                                            'placeholder' => 'Choose a task',
-                                                            'query_builder'=> function (EntityRepository $er)
-                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
-        ->add('infos',TextareaType::class,array('required' => false))
-        ->add('tap',  SubmitType::class,  array('label'    => "TAP !"))
-        ->getForm();
+        $form = $this->createForm(TapType::class,$tap);
 
         //traitement du formulaire
 		$form->handleRequest($request);
@@ -74,6 +72,7 @@ class DefaultController extends Controller
             //On vérifie qu'un utilisateur équivalent n'a pas déjà été enregistré
             if($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName())){
                 $tap->setUser($this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByName($tap->getUser()->getName()));
+                $em->detach($user->getLastTap()->getTask());
             }else{
                 $user=new User();
                 $user->setName($tap->getUser()->getName());
@@ -82,11 +81,7 @@ class DefaultController extends Controller
                 $em->persist($user);
                 $em->flush();
             }
-
-            $em->persist($tap);
-	   		$em->flush();
             $user->setLastTap($tap);
-            $em->persist($user);
             $em->flush();
 
 	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
@@ -128,7 +123,7 @@ class DefaultController extends Controller
         $i=0;
         $activites=array();
         foreach ($taps as $element) {
-        	if($element->getInProgress()){
+        	if(!$element->getInProgress()){
         		$activites[$i]['nom']	  = $element->getTask()->getName();
          		$activites[$i]['duree']	  = $element->formatDuree($start);
                 $activites[$i]['i']       = $i;
@@ -159,6 +154,9 @@ class DefaultController extends Controller
             if(empty($ajout)){
                 $ajout = new User();
                 $ajout->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+                $tap = new Tap();
+                $tap->setTask(new Task());
+                $ajout->setLastTap($tap);
             }else{
                 $session->getFlashBag()->add('erreur', "L'utilisateur « ".$cookie[1]." » est déjà enregistré !!!");
             }
