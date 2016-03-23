@@ -29,3 +29,7 @@ tests_tab:
 tests_calendar:
     path:     /calendar
     defaults: { _controller: TestsBundle:Default:calendar }
+
+tests_sql:
+    path:     /sql
+    defaults: { _controller: TestsBundle:Default:sql }

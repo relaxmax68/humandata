@@ -35,15 +35,6 @@ class User
      */
     private $ipAddress;
 
-    /**
-     * @var \stdClass
-     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\Tap")
-     * @ORM\JoinColumn(nullable=false)
-     *
-     * @ORM\Column(name="lasttap", type="object")
-     */
-    private $lastTap;
-
     public function __construct(){
 
         $this->setName("new user");
@@ -109,29 +100,5 @@ class User
     public function getIpAddress()
     {
         return $this->ipAddress;
-    }
-
-    /**
-     * Set lastTap
-     *
-     * @param \stdClass $tap
-     *
-     * @return User
-     */
-    public function setLastTap($tap)
-    {
-        $this->lastTap = $tap;
-
-        return $this;
-    }
-
-    /**
-     * Get lastTap
-     *
-     * @return \stdClass
-     */
-    public function getLastTap()
-    {
-        return $this->lastTap;
     }
 }

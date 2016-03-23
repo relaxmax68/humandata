@@ -11,6 +11,8 @@ use TestsBundle\Entity\Test;
 use ADesigns\CalendarBundle\Entity\EventEntity;
 use ADesigns\CalendarBundle\Event\CalendarEvent;
 
+use BigButtonBundle\Repository;
+
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -47,7 +49,7 @@ class DefaultController extends Controller
     public function menuAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();  
-        //$testlist = $em->getRepository('TestsBundle:Test')->findAll();
+
         $tests = new Test();
 
         $form = $this->createForm(TestType::class,$tests);
@@ -68,5 +70,13 @@ class DefaultController extends Controller
     public function calendarAction()
     {
         return $this->render('TestsBundle:Tests:calendar.html.twig');
+    }
+    public function sqlAction()
+    {
+        $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+
+        $results=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->lastUserIdTap($user);
+
+        return $this->render('TestsBundle:Tests:sql.html.twig',array('results'=>$results));
     }
 }

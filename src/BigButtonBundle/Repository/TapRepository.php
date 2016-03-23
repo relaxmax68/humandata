@@ -58,4 +58,16 @@ class TapRepository extends \Doctrine\ORM\EntityRepository
 		    ->getQuery()
 		    ->getResult();
 	}
+	public function lastUserIdTap( $user ){
+
+		$qb = $this->createQueryBuilder('t');
+
+		$qb->select("max(t.id)")
+		   ->where('t.user = :user')
+		   ->setParameter('user',$user->getId());
+
+		return $qb
+		    ->getQuery()
+		    ->getOneOrNullResult();
+	}
 }

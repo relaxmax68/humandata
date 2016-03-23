@@ -1,0 +1,16 @@
+{% extends "::bootstrap.html.twig" %}
+
+{% block title %}SQL{% endblock %}
+
+{% block body %}
+
+    <h3>Test de requêtes SQL</h3>
+
+	<p>{{ dump(results) }}</p>
+
+	<a class="btn btn-primary btn-xs" role="button" href="{{path('accueil_homepage')}}">Retour à l'accueil</a>
+	
+{% endblock %}
+
+
+
