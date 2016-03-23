@@ -35,10 +35,6 @@ class User
      */
     private $ipAddress;
 
-    public function __construct(){
-
-        $this->setName("new user");
-    }
     public function __toString(){
 
         return $this->name;

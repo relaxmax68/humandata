@@ -24,6 +24,8 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
+        $tap = new Tap();
+
         //on cherche une IP déjà enregistrée dans la BDD tap_user grâce au service IPListener
         $user=$this->getdoctrine()->getRepository('BigButtonBundle:User')->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
 
@@ -31,20 +33,22 @@ class DefaultController extends Controller
         if(empty($user)){
             $user = new User();
             $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
-            $lasttap = new Tap();
-            $lasttask = new Task();
-            $em->persist($user);
         }else{
-            $lasttap=$user->getLastTap();
-            if(empty($lasttap)){$lasttap=new Tap();}
-            $lasttask=$lasttap->getTask();
+            $lasttap=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->findOneById($this->getdoctrine()->getRepository('BigButtonBundle:Tap')->LastUserIdTap($user));
+        }
+        //si jamais aucune activité n'a été réalisée par l'utilisateur on en crée une vide
+        if(empty($lasttap)){
+            $lasttap  = new Tap();
+            $lasttap->setTask( new Task());
+        }else{
+            $tap->setTask($lasttap->getTask());
         }
 
-        $tap = new Tap();
         $tap->setUser($user);
-        $tap->setTask($lasttask);
         $tap->setInProgress($lasttap->getInProgress());
+
         $em->persist($tap);
+        $em->persist($user);
 
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createForm(TapType::class,$tap);
@@ -52,18 +56,27 @@ class DefaultController extends Controller
         //traitement du formulaire
 		$form->handleRequest($request);
     	if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
 
-            //On vérifie qu'une tâche équivalente n'a pas déjà été commencée
+            //On vérifie qu'une tâche n'a pas déjà été commencée
 
-            /*if($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName())){
-                $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneByName($tap->getTask()->getName()));
-            }*/
+            if($lasttap->getInProgress() && $lasttap->getTask()!=$tap->getTask()){
+                //on sauvegarde la nouvelle tâche saisie
+                $newtask=$tap->getTask();
+                //on termine l'ancienne tâche et on enregistre ce Tap!
+                $tap->setInProgress(0);
+                $tap->setTask($lasttap->getTask());
+                $em->flush();
+                //on active la nouvelle tâche
+                $tap = new Tap();
+                $tap->setUser($user);
+                $tap->setTask($newtask);
+                $tap->setInProgress(1);
+                $em->persist($tap);
+            }
 
-            $em->detach($user->getLastTap()->getTask());
-            $user->setLastTap($tap);
             $em->flush();
 
 	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
@@ -73,10 +86,8 @@ class DefaultController extends Controller
         //Une activité est-elle déjà en cours ?
         if($tap->getInProgress()){
             $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
-            // depuis : ".$lastdiff->format("%a jours %h heures %i minutes %s secondes"));
         }else{
             $session->getFlashBag()->add('stop', "En PAUSE");
-            // depuis : ".$lastdiff->format("%a jours %h heures %i minutes %s secondes"));
             $diff=$tap->formatDuree($lasttap->getDate());
             $session->getFlashBag()->add('duree', "La dernière activité ".$diff);
         }
@@ -136,9 +147,6 @@ class DefaultController extends Controller
             if(empty($ajout)){
                 $ajout = new User();
                 $ajout->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
-                $tap = new Tap();
-                $tap->setTask(new Task());
-                $ajout->setLastTap($tap);
             }else{
                 $session->getFlashBag()->add('erreur', "L'utilisateur « ".$cookie[1]." » est déjà enregistré !!!");
             }

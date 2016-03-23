@@ -37,7 +37,7 @@ class Tap // extends Event
     private $infos;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\User",cascade={"persist"}))
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
