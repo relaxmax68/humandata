@@ -23,8 +23,8 @@ class AppKernel extends Kernel
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new TestsBundle\TestsBundle(),
             new BigButtonBundle\BigButtonBundle(),
-            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new BladeTester\CalendarBundle\BladeTesterCalendarBundle(),
+            new CalendarBundle\CalendarBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

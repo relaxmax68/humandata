@@ -6,6 +6,7 @@ imports:
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@TestsBundle/Resources/config/services.yml" }
     - { resource: "@BigButtonBundle/Resources/config/services.yml" }
+    - { resource: "@CalendarBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -110,4 +111,13 @@ easy_admin:
         - BigButtonBundle\Entity\Tap
         - BigButtonBundle\Entity\Task
         - BigButtonBundle\Entity\User
+
+blade_tester_calendar:
+    driver: doctrine/orm
+    engine: twig
+    classes:
+        event:
+            entity: CalendarBundle\Entity\Event
+        category:
+            entity: BladeTester\CalendarBundle\Entity\EventCategory
 

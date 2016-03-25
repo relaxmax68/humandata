@@ -89,6 +89,7 @@ $(function() {
   $('#texteJQ').html('Hello world. Ce texte est affiché par jQuery.');
 });
 
+fos.Router.setData({"base_url":"","routes":{"fullcalendar_loader":{"tokens":[["text","\/fc-load-events"]],"defaults":[],"requirements":[],"hosttokens":[]}},"prefix":"","host":"localhost","scheme":"http"});
 $(function(){
 
 	function createCookie(name, value, days) {

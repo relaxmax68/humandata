@@ -30,8 +30,6 @@ big_bouton:
     resource: "@BigButtonBundle/Resources/config/routing.yml"
     prefix:   /bouton
 
-adesigns_calendar:
-  resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
-
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+BladeTesterCalendarBundle:
+    resource: "@BladeTesterCalendarBundle/Resources/config/routing.yml"
+    prefix:   /
