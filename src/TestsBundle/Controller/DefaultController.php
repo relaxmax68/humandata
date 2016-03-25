@@ -69,7 +69,7 @@ class DefaultController extends Controller
     }
     public function calendarAction()
     {
-        return $this->render('TestsBundle:Tests:calendar.html.twig');
+       return $this->redirectToRoute('calendar_event_list_by_day',array('day'=>'26','month'=>'03','year'=>'2016'));
     }
     public function sqlAction()
     {
