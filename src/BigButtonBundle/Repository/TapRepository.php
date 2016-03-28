@@ -85,4 +85,20 @@ class TapRepository extends \Doctrine\ORM\EntityRepository
 			    ->getQuery()
 			    ->getResult();
 	}
+	public function idBeforeLastUserTapSaved( $idUser, $lastid ){
+
+		$qb = $this->createQueryBuilder('t');
+
+		$qb->select("max(t.id)")
+
+			 ->andWhere('t.user = :user')
+			 ->setParameter('user',$idUser)
+
+			 ->andWhere('t.saved = :saved')
+			 ->setParameter('saved', true);
+
+		return $qb
+				->getQuery()
+				->getOneOrNullResult();
+	}
 }

@@ -90,7 +90,7 @@ class DefaultController extends Controller
             $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
         }else{
             $session->getFlashBag()->add('stop', "En PAUSE");
-            $diff=$tap->formatDuree($lasttap->getDate());
+            $diff=$tap->formatDuree($lasttap);
             $session->getFlashBag()->add('duree', "La dernière activité ".$diff);
             //on sauvegarde le paramètre Top
             $em->flush();
@@ -114,49 +114,62 @@ class DefaultController extends Controller
                 ->getDoctrine()
                 ->getManager();
 
-        $end  = new \Datetime();
-        $start= (new \Datetime())->setTime(0,0,0);
-
         $user=$repositoryUser->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
 
-        //sauvegarde des Tap sous forme d'Event
+        /*
+         * sauvegarde des Tap sous forme d'Event
+         */
+
         $taps = $repositoryTap->notSaved($user);
-
-        foreach ($taps as $element) {
-          if(!$element->getSaved()){
-            if($element->getInProgress()){
-              $event = new Event();
-              $event->setTitle($element->getTask()->getName());
-              $event->setDescription($element->getInfos());
-              //$event->setCategory($element->getTask());
-              $event->setStart($element->getDate());
-              $event->setEnd($end);
-
-              $event->setUser($element->getUser());
-
-              $em->persist($event);
-            }else{
-              $event->setEnd($element->getDate());
-            }
+        //on vérifie s'il y a des enregistrements à mettre à jour
+        if(!empty($taps)){
+          //D'abord vérifier que le premier élément est bien un TAP de début
+          if(!$taps[0]->getInProgress()){
+            //on réinitialise le dernier enregistrement traité
+            $lastid=$repositoryTap->idBeforeLastUserTapSaved($user->getId(),$taps[0]->getId());
+            $lasttap=$repositoryTap->findOneById($lastid);
+            $lasttap->setSaved(0);
+            //on recharge le tableau
+            $taps = $repositoryTap->notSaved($user);
           }
-          //on n'oublie pas de déclarer le tap «saved»
-          $element->setSaved(true);
+
+          foreach ($taps as $element) {
+            //si le Tap n'a jamais été traité es si ce n'est pas un top
+            if(!$element->getSaved() && !$element->getTop()){
+              if($element->getInProgress()){
+                $event = new Event();
+                $event->setTitle($element->getTask()->getName());
+                $event->setDescription($element->getInfos());
+                //$event->setCategory($element->getTask());
+                $event->setStart($element->getDate());
+                $event->setEnd(new \Datetime());
+
+                $event->setUser($element->getUser());
+
+                $em->persist($event);
+              }else{
+                $event->setEnd($element->getDate());
+              }
+            }
+            //on n'oublie pas de déclarer le tap «saved»
+            $element->setSaved(true);
+          }
+          $em->flush();
         }
-        $em->flush();
-
         //préparation pour l'affichage synthétique
-        $taps = $repositoryTap->myFindUserOnDuration($user,$start, $end);
+        $taps = $repositoryTap->myFindUserOnDuration($user,(new \Datetime())->setTime(0,0,0), new \Datetime());
 
+        $start=$taps[0];
         $i=0;
         $activites=array();
         foreach ($taps as $element) {
         	if(!$element->getInProgress()){
-        		  $activites[$i]['nom']	  = $element->getTask()->getName();
+        		  $activites[$i]['nom']	    = $element->getTask()->getName();
          		  $activites[$i]['duree']	  = $element->formatDuree($start);
               $activites[$i]['i']       = $i;
               $activites[$i]['top']     = $element->getTop();
          	}else{
-         		$start=$element->getDate();
+         		$start=$element;
          		$i=$i+1;
          	}
         }

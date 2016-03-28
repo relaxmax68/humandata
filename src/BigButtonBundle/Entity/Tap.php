@@ -76,6 +76,7 @@ class Tap
         $this->date = new \Datetime();
         $this->inProgress = false;
         $this->top = false;
+        $this->saved = false;
     }
 
     public function __toString()
@@ -220,14 +221,15 @@ class Tap
      *
      * @return string
      */
-    public function formatDuree(\Datetime $debut){
+    public function formatDuree(Tap $lasttap){
 
-        $diff=$this->date->diff($debut);
+        $diff=$this->date->diff($lasttap->getDate());
         if($diff->d==0){
             if($diff->h==0){
                 if($diff->i==0){
                     $duree="a été enregistrée comme un TOP";
                     $this->setTop();
+                    $lasttap->setTop();
                 }else{
                     $duree=$diff->format("a duré %i minutes %s secondes");
                 }
