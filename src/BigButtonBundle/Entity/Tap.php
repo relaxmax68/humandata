@@ -3,7 +3,6 @@
 namespace BigButtonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Event;
 
 /**
  * Tap
@@ -11,7 +10,7 @@ use AppBundle\Entity\Event;
  * @ORM\Table(name="tap")
  * @ORM\Entity(repositoryClass="BigButtonBundle\Repository\TapRepository")
  */
-class Tap // extends Event
+class Tap
 {
     /**
      * @var int
@@ -47,7 +46,7 @@ class Tap // extends Event
      * @ORM\JoinColumn(nullable=false)
      */
     private $task;
-    
+
     /**
      * @var boolean
      * true = tâche en cours
@@ -63,6 +62,14 @@ class Tap // extends Event
      * @ORM\Column(name="top", type="boolean")
      */
     private $top;
+
+    /**
+     * @var boolean
+     * true = tap saved
+     *
+     * @ORM\Column(name="saved", type="boolean")
+     */
+     private $saved;
 
     public function __construct()
     {
@@ -253,5 +260,29 @@ class Tap // extends Event
     public function getTop()
     {
         return $this->top;
+    }
+
+    /**
+     * Set saved
+     *
+     * @param boolean $saved
+     *
+     * @return Tap
+     */
+    public function setSaved($saved)
+    {
+        $this->saved = $saved;
+
+        return $this;
+    }
+
+    /**
+     * Get saved
+     *
+     * @return boolean
+     */
+    public function getSaved()
+    {
+        return $this->saved;
     }
 }

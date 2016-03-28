@@ -4,9 +4,12 @@ namespace BigButtonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
 use BigButtonBundle\Entity\Tap;
 use BigButtonBundle\Entity\User;
 use BigButtonBundle\Entity\Task;
+use CalendarBundle\Entity\Event;
+
 use BigButtonBundle\Form\TapType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -54,14 +57,13 @@ class DefaultController extends Controller
         $form = $this->createForm(TapType::class,$tap);
 
         //traitement du formulaire
-		$form->handleRequest($request);
-    	if ($form->isSubmitted() && $form->isValid()) {
+	    	$form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
 
             //On vérifie qu'une tâche n'a pas déjà été commencée
-
             if($lasttap->getInProgress() && $lasttap->getTask()!=$tap->getTask()){
                 //on sauvegarde la nouvelle tâche saisie
                 $newtask=$tap->getTask();
@@ -79,10 +81,10 @@ class DefaultController extends Controller
 
             $em->flush();
 
-	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
-		}
-
-        $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());                                                    
+	    	    $session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
+	    	}
+        //affichage des avertissements d'état
+        $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());
         //Une activité est-elle déjà en cours ?
         if($tap->getInProgress()){
             $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
@@ -90,9 +92,11 @@ class DefaultController extends Controller
             $session->getFlashBag()->add('stop', "En PAUSE");
             $diff=$tap->formatDuree($lasttap->getDate());
             $session->getFlashBag()->add('duree', "La dernière activité ".$diff);
+            //on sauvegarde le paramètre Top
+            $em->flush();
         }
 
-	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
+	      return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
     }
     public function statsAction()
     {
@@ -106,21 +110,51 @@ class DefaultController extends Controller
             ->getManager()
             ->getRepository('BigButtonBundle:User');
 
+        $em = $this
+                ->getDoctrine()
+                ->getManager();
+
         $end  = new \Datetime();
         $start= (new \Datetime())->setTime(0,0,0);
 
         $user=$repositoryUser->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
 
+        //sauvegarde des Tap sous forme d'Event
+        $taps = $repositoryTap->notSaved($user);
+
+        foreach ($taps as $element) {
+          if(!$element->getSaved()){
+            if($element->getInProgress()){
+              $event = new Event();
+              $event->setTitle($element->getTask()->getName());
+              $event->setDescription($element->getInfos());
+              //$event->setCategory($element->getTask());
+              $event->setStart($element->getDate());
+              $event->setEnd($end);
+
+              $event->setUser($element->getUser());
+
+              $em->persist($event);
+            }else{
+              $event->setEnd($element->getDate());
+            }
+          }
+          //on n'oublie pas de déclarer le tap «saved»
+          $element->setSaved(true);
+        }
+        $em->flush();
+
+        //préparation pour l'affichage synthétique
         $taps = $repositoryTap->myFindUserOnDuration($user,$start, $end);
 
         $i=0;
         $activites=array();
         foreach ($taps as $element) {
         	if(!$element->getInProgress()){
-        		$activites[$i]['nom']	  = $element->getTask()->getName();
-         		$activites[$i]['duree']	  = $element->formatDuree($start);
-                $activites[$i]['i']       = $i;
-                $activites[$i]['top']     = $element->getTop();
+        		  $activites[$i]['nom']	  = $element->getTask()->getName();
+         		  $activites[$i]['duree']	  = $element->formatDuree($start);
+              $activites[$i]['i']       = $i;
+              $activites[$i]['top']     = $element->getTop();
          	}else{
          		$start=$element->getDate();
          		$i=$i+1;

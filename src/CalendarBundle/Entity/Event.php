@@ -17,9 +17,37 @@ class Event extends BaseEvent {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    /**
+     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\User",cascade={"persist"}))
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \BigButtonBundle\Entity\User $user
+     *
+     * @return Event
+     */
+    public function setUser(\BigButtonBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \BigButtonBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

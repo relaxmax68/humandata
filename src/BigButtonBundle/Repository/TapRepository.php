@@ -29,7 +29,7 @@ class TapRepository extends \Doctrine\ORM\EntityRepository
 
 			->andWhere('t.date BETWEEN :start AND :end')
 			->setParameter('start', $start)
-	        ->setParameter('end',   $end);
+	    ->setParameter('end',   $end);
 
 		return $qb
 		    ->getQuery()
@@ -69,5 +69,20 @@ class TapRepository extends \Doctrine\ORM\EntityRepository
 		return $qb
 		    ->getQuery()
 		    ->getOneOrNullResult();
+	}
+	public function notSaved( $user){
+
+			$qb = $this->createQueryBuilder('t');
+
+			$qb
+				->where('t.user = :user')
+				->setParameter('user',$user->getId())
+
+				->andWhere('t.saved = :saved')
+				->setParameter('saved', false);
+
+			return $qb
+			    ->getQuery()
+			    ->getResult();
 	}
 }

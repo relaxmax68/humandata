@@ -30,15 +30,6 @@ class TapType extends AbstractType
                                                             {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
             ->add('infos',TextareaType::class,array('required' => false))
             ->add('tap',  SubmitType::class,  array('label'    => "TAP !"));
-        /*
-
-            ->add('date', 'datetime')
-            ->add('infos')
-            ->add('inProgress')
-            ->add('top')
-            ->add('user')
-            ->add('task')
-        ;*/
     }    
     /**
      * @param OptionsResolver $resolver
