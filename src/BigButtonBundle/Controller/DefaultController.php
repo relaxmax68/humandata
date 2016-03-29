@@ -166,11 +166,13 @@ class DefaultController extends Controller
             }
         }
 
-        $ajout->setName($cookie[1]);
-
-        //enregistrement en BDD
-        $em->persist($ajout);
-        $em->flush();
+        //au cas où les cookies seraient désactivés
+        if(!empty($ajout)){
+            $ajout->setName($cookie[1]);
+            //enregistrement en BDD
+            $em->persist($ajout);
+            $em->flush();
+        }
 
         //retour au formulaire
         return $this->redirectToRoute('big_button_homepage');
