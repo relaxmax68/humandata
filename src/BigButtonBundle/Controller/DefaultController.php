@@ -127,8 +127,8 @@ class DefaultController extends Controller
           if(!$taps[0]->getInProgress()){
             //on réinitialise le dernier enregistrement traité
             $lastid=$repositoryTap->idBeforeLastUserTapSaved($user->getId(),$taps[0]->getId());
-            $lasttap=$repositoryTap->findOneById($lastid);
-            $lasttap->setSaved(0);
+            $lastSavedTap=$repositoryTap->findOneById($lastid);
+            $lastSavedTap->setSaved(0);
             //on recharge le tableau
             $taps = $repositoryTap->notSaved($user);
           }
