@@ -3,9 +3,13 @@ big_button_homepage:
     defaults: { _controller: BigButtonBundle:Default:index }
 
 big_stats:
-    path:     /stats 
+    path:     /stats
     defaults: { _controller: BigButtonBundle:Default:stats }
 
 big_button_add:
-    path:     /add 
+    path:     /add
     defaults: { _controller: BigButtonBundle:Default:add }
+
+big_button_calendar:
+    path:     /calendar
+    defaults: { _controller: BladeTesterCalendarBundle:Event:index }

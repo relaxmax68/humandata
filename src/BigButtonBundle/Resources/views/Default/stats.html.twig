@@ -3,9 +3,9 @@
 {% block title %}Tap !{% endblock %}
 
 {% block body %}
-
+<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{path('big_button_calendar')}}">MODE CALENDRIER</a>
 <div class="row">
-		
+
 
 <h1>Activités du {{ "now"|date("d/m/Y") }}</h1>
 
@@ -28,5 +28,5 @@
 
 	<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{path('big_button_homepage')}}">RETOUR</a>
 </div>
-	
+
 {% endblock %}
