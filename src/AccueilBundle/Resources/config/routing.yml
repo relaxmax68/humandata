@@ -1,10 +1,14 @@
 bigButton:
     path:     /button
-    defaults: { _controller: BigButtonBundle:Default:index}
-    
+    defaults: { _controller: BigButtonBundle:Default:index }
+
 accueil_homepage:
     path:     /
     defaults: { _controller: AccueilBundle:Default:accueil }
+
+accueil_tap:
+    path:     /projets/12
+    defaults: { _controller: BigButtonBundle:Default:index }
 
 accueil_projets:
     path:     /projets/{id}
@@ -12,9 +16,25 @@ accueil_projets:
     requirements:
         id: \d+
 
+accueil_analyse:
+    path:     /administration/1
+    defaults: { _controller: AccueilBundle:Analyse:index }
+
+accueil_tests:
+    path:     /administration/2
+    defaults: { _controller: TestsBundle:Default:index }
+
+accueil_visite:
+    path:     /administration/3
+    defaults: { _controller: AccueilBundle:Default:visites }
+
+accueil_admin:
+    path:     /administration/5
+    defaults: { _controller: EasyAdminBundle:Admin:index }
+
 accueil_administration:
     path:     /administration/{id}
-    defaults: { _controller: AccueilBundle:Default:administration }
+    defaults: { _controller: AccueilBundle:Default:message }
     requirements:
         id: \d+
 

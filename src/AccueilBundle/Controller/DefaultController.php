@@ -23,7 +23,7 @@ class DefaultController extends Controller
         return $this->render('AccueilBundle:Default:administration.html.twig',array( 'id' => $id ));
     }
 
-    public function messageAction(Request $request, $id)
+    public function messageAction(Request $request, $id = "")
     {
         $session = $request->getSession();
 
