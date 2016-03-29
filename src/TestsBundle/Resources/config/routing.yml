@@ -33,3 +33,7 @@ tests_calendar:
 tests_sql:
     path:     /sql
     defaults: { _controller: TestsBundle:Default:sql }
+
+tests_js:
+    path:     /js
+    defaults: { _controller: TestsBundle:Default:js }

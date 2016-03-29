@@ -22,7 +22,7 @@ class DefaultController extends Controller
     public function transitionAction()
     {
         return $this->render('TestsBundle:Tests:transition.html.twig');
-    }    
+    }
     public function structureAction()
     {
         return $this->render('TestsBundle:Tests:structure.html.twig');
@@ -48,7 +48,7 @@ class DefaultController extends Controller
     }
     public function menuAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();  
+        $em = $this->getDoctrine()->getManager();
 
         $tests = new Test();
 
@@ -60,7 +60,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-        var_dump($tests);   
+        var_dump($tests);
         return $this->render('TestsBundle:Tests:menu.html.twig',array('tests'=>$tests,'form' => $form->createView()));
     }
     public function tabAction()
@@ -78,5 +78,9 @@ class DefaultController extends Controller
         $results=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->lastUserIdTap($user);
 
         return $this->render('TestsBundle:Tests:sql.html.twig',array('results'=>$results));
+    }
+    public function jsAction()
+    {
+        return $this->render('TestsBundle:Tests:js.html.twig');
     }
 }
