@@ -27,7 +27,7 @@ class TapType extends AbstractType
             ->add('task', EntityType::class,array('class'=> 'BigButtonBundle:Task',
                                                             'placeholder' => 'Choose a task',
                                                             'query_builder'=> function (EntityRepository $er)
-                                                            {return $er->createQueryBuilder('u')->orderBy('u.id', 'ASC');}))
+                                                            {return $er->createQueryBuilder('t')->orderBy('t.priority', 'DESC');}))
             ->add('infos',TextareaType::class,array('required' => false))
             ->add('tap',  SubmitType::class,  array('label'    => "TAP !"));
     }

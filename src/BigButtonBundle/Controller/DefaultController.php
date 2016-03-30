@@ -37,14 +37,17 @@ class DefaultController extends Controller
             $user = new User();
             $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
         }else{
+            //sinon on recherche le dernier TAP enregistré
             $lasttap=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->findOneById($this->getdoctrine()->getRepository('BigButtonBundle:Tap')->LastUserIdTap($user));
+            $lasttask=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($lasttap->getTask()->getId());
         }
+
         //si jamais aucune activité n'a été réalisée par l'utilisateur on en crée une vide
         if(empty($lasttap)){
             $lasttap  = new Tap();
             $lasttap->setTask( new Task());
         }else{
-            $tap->setTask($lasttap->getTask());
+            $tap->setTask($lasttask);
         }
 
         $tap->setUser($user);
@@ -56,7 +59,7 @@ class DefaultController extends Controller
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createForm(TapType::class,$tap);
 
-        //affichage des tâches prioritaires
+        //affichage des boutons de raccourcis
         $priority=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->greatestPriority();
 
         $i=0;
@@ -73,9 +76,6 @@ class DefaultController extends Controller
             foreach ($priority as $element) {
                 if($form->get('priority'.$i)->isClicked()){
                     $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($element['id']));
-                    var_dump($form->get('priority'.$i)->isClicked());
-                    var_dump($element);
-                    echo $i;
                 }
                 $i++;
             }
@@ -83,7 +83,7 @@ class DefaultController extends Controller
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
 
-            //On vérifie qu'une tâche n'a pas déjà été commencée
+            //On vérifie qu'une AUTRE tâche n'a pas déjà été commencée
             if($lasttap->getInProgress() && $lasttap->getTask()!=$tap->getTask()){
                 //on sauvegarde la nouvelle tâche saisie
                 $newtask=$tap->getTask();
@@ -111,7 +111,7 @@ class DefaultController extends Controller
         $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());
         //Une activité est-elle déjà en cours ?
         if($tap->getInProgress()){
-            $session->getFlashBag()->add('start', "ACTIVITÉ EN COURS");
+            $session->getFlashBag()->add('start', "ACTIVITÉ ".$tap->getTask()->getName()." EN COURS");
         }else{
             $session->getFlashBag()->add('stop', "En PAUSE");
             $diff=$tap->formatDuree($lasttap);
@@ -158,7 +158,7 @@ class DefaultController extends Controller
           }
 
           foreach ($taps as $element) {
-            //si le Tap n'a jamais été traité es si ce n'est pas un top
+            //si le Tap n'a jamais été traité et si ce n'est pas un top
             if(!$element->getSaved() && !$element->getTop()){
               if($element->getInProgress()){
                 $event = new Event();

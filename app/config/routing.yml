@@ -29,7 +29,3 @@ big_button:
 big_bouton:
     resource: "@BigButtonBundle/Resources/config/routing.yml"
     prefix:   /bouton
-
-BladeTesterCalendarBundle:
-    resource: "@BladeTesterCalendarBundle/Resources/config/routing.yml"
-    prefix:   /

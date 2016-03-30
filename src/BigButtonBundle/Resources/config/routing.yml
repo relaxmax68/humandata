@@ -12,4 +12,4 @@ big_button_add:
 
 big_button_calendar:
     path:     /calendar
-    defaults: { _controller: BladeTesterCalendarBundle:Event:index }
+    defaults: { _controller: CalendarBundle:Default:index }

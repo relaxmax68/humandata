@@ -88,7 +88,7 @@ swiftmailer:
         sleep:                0
     delivery_addresses:   ~
     disable_delivery:     ~
-    logging: 
+    logging:
 
 fos_user:
     db_driver:     orm                    # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
@@ -111,13 +111,3 @@ easy_admin:
         - BigButtonBundle\Entity\Tap
         - BigButtonBundle\Entity\Task
         - BigButtonBundle\Entity\User
-
-blade_tester_calendar:
-    driver: doctrine/orm
-    engine: twig
-    classes:
-        event:
-            entity: CalendarBundle\Entity\Event
-        category:
-            entity: BladeTester\CalendarBundle\Entity\EventCategory
-

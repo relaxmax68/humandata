@@ -2,14 +2,12 @@
 namespace CalendarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use BladeTester\CalendarBundle\Entity\Event as BaseEvent;
-
 
 /**
- * @ORM\Entity(repositoryClass="BladeTester\CalendarBundle\Repository\EventRepository")
+ * @ORM\Entity(repositoryClass="CalendarBundle\Repository\EventRepository")
  * @ORM\Table(name="events")
  */
-class Event extends BaseEvent {
+class Event {
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -18,15 +16,77 @@ class Event extends BaseEvent {
      */
     private $id;
     /**
-     * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\User",cascade={"persist"}))
-     * @ORM\JoinColumn(nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="title", type="text", nullable=true, length=255)
      */
-    private $user;
+     private $title = '';
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="description", type="text", nullable=true)
+      */
+     private $description = '';
+     /**
+      * @var \DateTime
+      *
+      * @ORM\Column(name="start", type="datetime")
+      */
+     private $start;
+     /**
+      * @var \DateTime
+      *
+      * @ORM\Column(name="end", type="datetime")
+      */
+     private $end;
 
-    public function getId() {
-        return $this->id;
-    }
+     /**
+      * @ORM\ManyToOne(targetEntity="BigButtonBundle\Entity\User",cascade={"persist"}))
+      * @ORM\JoinColumn(nullable=false)
+      */
+     private $user;
 
+     public function getId() {
+         return $this->id;
+     }
+
+     public function getTitle() {
+         return $this->title;
+     }
+
+     public function setTitle($title) {
+         $this->title = $title;
+         return $this;
+     }
+
+     public function getDescription() {
+         return $this->description;
+     }
+
+     public function setDescription($description) {
+         if (!is_null($description)) {
+             $this->description = $description;
+         }
+         return $this;
+     }
+
+     public function getStart() {
+         return $this->start;
+     }
+
+     public function setStart(\DateTime $start) {
+         $this->start = $start;
+         return $this;
+     }
+
+     public function getEnd() {
+         return $this->end;
+     }
+
+     public function setEnd(\DateTime $end) {
+         $this->end = $end;
+         return $this;
+     }
     /**
      * Set user
      *

@@ -1,1 +1,5 @@
-Hello World!
+{% extends "::bootstrap.html.twig" %}
+{% block body %}
+Le calendrier va bientôt arriver…
+<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{ path('big_stats') }}">Statistiques</a>
+{% endblock %}

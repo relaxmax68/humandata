@@ -23,7 +23,6 @@ class AppKernel extends Kernel
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new TestsBundle\TestsBundle(),
             new BigButtonBundle\BigButtonBundle(),
-            new BladeTester\CalendarBundle\BladeTesterCalendarBundle(),
             new CalendarBundle\CalendarBundle(),
         );
 
