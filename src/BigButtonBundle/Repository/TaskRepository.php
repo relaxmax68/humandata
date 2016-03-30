@@ -10,4 +10,17 @@ namespace BigButtonBundle\Repository;
  */
 class TaskRepository extends \Doctrine\ORM\EntityRepository
 {
+  public function greatestPriority(){
+
+    $qb = $this->createQueryBuilder('t');
+
+    $qb
+      ->select('t.name')
+      ->orderBy('t.priority','DESC')
+      ->setMaxResults(3);
+
+    return $qb
+        ->getQuery()
+        ->getResult();
+  }
 }

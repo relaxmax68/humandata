@@ -24,7 +24,13 @@
 
 	<div class="row">
         {{ form_widget(form.tap,{'attr':{'class':'btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12'}}) }}
-   	</div>
+  </div>
+
+	<div class="row">
+		{% for message in app.session.flashbag.get('priority') %}
+			<p class="col-xs-4 col-sm-4 col-md-4 col-lg-4  btn btn-success">{{ message }}</p>
+		{% endfor %}
+  </div>
 
 	<div class="row">
 	    <div class="form-group">
@@ -48,7 +54,7 @@
 						</div>
 						<div class="modal-body">
 							<p>
-								<label for="pseudo">Votre pseudo</label> : 
+								<label for="pseudo">Votre pseudo</label> :
 								<input type="text" name="pseudo" id="user" placeholder="nom du nouvel utilisateur" autofocus />
 							</p>
 						</div>
@@ -77,7 +83,7 @@
 				        </div>
 				        	<div class="modal-body">
 								<p>
-									<label for="pseudo">Nouvelle activité</label> : 
+									<label for="pseudo">Nouvelle activité</label> :
 									<input type="text" name="pseudo" id="task" placeholder="nom de l'activité" autofocus/>
 								</p>
 					        </div>

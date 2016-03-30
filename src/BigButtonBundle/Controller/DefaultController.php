@@ -79,10 +79,20 @@ class DefaultController extends Controller
                 $em->persist($tap);
             }
 
+            //on augmente le facteur prioritaire de la tâche sélectionnée
+            $tap->getTask()->incPriority();
+
             $em->flush();
 
 	    	    $session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
 	    	}
+        //affichage des tâches prioritaires
+        $priority=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->greatestPriority();
+
+        foreach ($priority as $element) {
+            $session->getFlashBag()->add('priority', $element['name']);
+        }
+
         //affichage des avertissements d'état
         $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());
         //Une activité est-elle déjà en cours ?

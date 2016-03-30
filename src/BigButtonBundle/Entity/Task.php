@@ -28,6 +28,13 @@ class Task
      */
     private $name;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="priority", type="integer")
+     */
+    private $priority;
+
     public function __toString(){
         return $this->name;
     }
@@ -64,5 +71,39 @@ class Task
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set priority
+     *
+     * @param integer $priority
+     *
+     * @return Task
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Get priority
+     *
+     * @return integer
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+    /**
+     * Inc priority
+     *
+     * @return integer
+     */
+    public function incPriority()
+    {
+        $this->priority=$this->priority+1;
+        return $this->priority;
     }
 }
