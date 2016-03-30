@@ -27,9 +27,9 @@
   </div>
 
 	<div class="row">
-		{% for message in app.session.flashbag.get('priority') %}
-			<p class="col-xs-4 col-sm-4 col-md-4 col-lg-4  btn btn-success">{{ message }}</p>
-		{% endfor %}
+        {{ form_widget(form.priority0,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4'}}) }}
+        {{ form_widget(form.priority1,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4'}}) }}
+        {{ form_widget(form.priority2,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4'}}) }}
   </div>
 
 	<div class="row">

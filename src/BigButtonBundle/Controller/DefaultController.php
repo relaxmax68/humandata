@@ -56,9 +56,29 @@ class DefaultController extends Controller
         // On crée le FormBuilder grâce au service form factory
         $form = $this->createForm(TapType::class,$tap);
 
+        //affichage des tâches prioritaires
+        $priority=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->greatestPriority();
+
+        $i=0;
+        foreach ($priority as $element) {
+            $form->add("priority".$i,  SubmitType::class,  array('label'    => $element['name']));
+            $i++;
+        }
+
         //traitement du formulaire
 	    	$form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //traitement des raccourcis
+            $i=0;
+            foreach ($priority as $element) {
+                if($form->get('priority'.$i)->isClicked()){
+                    $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($element['id']));
+                    var_dump($form->get('priority'.$i)->isClicked());
+                    var_dump($element);
+                    echo $i;
+                }
+                $i++;
+            }
 
             $tap->setDate(new \Datetime());
             $tap->setInProgress(!$tap->getInProgress());
@@ -86,12 +106,6 @@ class DefaultController extends Controller
 
 	    	    $session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
 	    	}
-        //affichage des tâches prioritaires
-        $priority=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->greatestPriority();
-
-        foreach ($priority as $element) {
-            $session->getFlashBag()->add('priority', $element['name']);
-        }
 
         //affichage des avertissements d'état
         $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());

@@ -15,7 +15,7 @@ class TaskRepository extends \Doctrine\ORM\EntityRepository
     $qb = $this->createQueryBuilder('t');
 
     $qb
-      ->select('t.name')
+      ->select('t.name','t.id')
       ->orderBy('t.priority','DESC')
       ->setMaxResults(3);
 
