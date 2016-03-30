@@ -152,9 +152,11 @@ class DefaultController extends Controller
             //on réinitialise le dernier enregistrement traité
             $lastid=$repositoryTap->idBeforeLastUserTapSaved($user->getId(),$taps[0]->getId());
             $lastSavedTap=$repositoryTap->findOneById($lastid);
-            $lastSavedTap->setSaved(0);
-            //on recharge le tableau
-            $taps = $repositoryTap->notSaved($user);
+            if(!empty($lastSavedTap)){
+              $lastSavedTap->setSaved(0);
+              //on recharge le tableau
+              $taps = $repositoryTap->notSaved($user);
+            }
           }
 
           foreach ($taps as $element) {

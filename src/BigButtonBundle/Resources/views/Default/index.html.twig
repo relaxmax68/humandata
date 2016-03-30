@@ -1,4 +1,4 @@
-{% extends "::bootstrap.html.twig" %}
+{% extends "AccueilBundle::connexion.html.twig" %}
 
 {% block title %}Tap !{% endblock %}
 
@@ -27,9 +27,9 @@
   </div>
 
 	<div class="row">
-        {{ form_widget(form.priority0,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4'}}) }}
-        {{ form_widget(form.priority1,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4'}}) }}
-        {{ form_widget(form.priority2,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4'}}) }}
+        {{ form_widget(form.priority0,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4', 'data-toggle':'tooltip', 'data-placement':'bottom', 'title':'Sélectionne directement cette tâche'}}) }}
+        {{ form_widget(form.priority1,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4', 'data-toggle':'tooltip', 'data-placement':'bottom', 'title':'Sélectionne directement cette tâche'}}) }}
+        {{ form_widget(form.priority2,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4', 'data-toggle':'tooltip', 'data-placement':'bottom', 'title':'Sélectionne directement cette tâche'}}) }}
   </div>
 
 	<div class="row">
@@ -38,8 +38,8 @@
 	        {{ form_errors(form.task) }}
 			<div class="input-group col-lg-5">
 				<span class="input-group-btn">
-					{{ form_widget(form.user,{'attr':{'class':'btn-lg form-control'}}) }}
-				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal" aria-haspopup="true">
+					{{ form_widget(form.user,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne un utilisateur'}}) }}
+				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal" aria-haspopup="true" data-toggle="tooltip" data-placement="right" title="Ajouter un utilisateur">
 				    	<span class="glyphicon glyphicon-plus"></span>
 				    </button>
 				</span>
@@ -67,8 +67,8 @@
 			</div>
 			<div class="input-group col-lg-5">
 				<span class="input-group-btn">
-					{{ form_widget(form.task,{'attr':{'class':'btn-lg form-control'}}) }}
-				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#taskModal">
+					{{ form_widget(form.task,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne une tâche'}}) }}
+				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#taskModal" data-toggle="tooltip" data-placement="right" title="Ajouter une Tâche">
 				    	<span class="glyphicon glyphicon-plus"></span>
 				    </button>
 				</span>
