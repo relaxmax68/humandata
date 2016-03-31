@@ -4,7 +4,7 @@ bigButton:
 
 accueil_homepage:
     path:     /
-    defaults: { _controller: AccueilBundle:Default:accueil }
+    defaults: { _controller: AccueilBundle:Default:index }
 
 accueil_tap:
     path:     /projets/12

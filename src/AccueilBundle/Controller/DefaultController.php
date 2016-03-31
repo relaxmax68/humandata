@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    public function indexAction()
+    {
+        return $this->render('AccueilBundle:Default:index.html.twig');
+    }
     public function accueilAction()
     {
         return $this->render('AccueilBundle:Default:accueil.html.twig');
@@ -39,6 +43,6 @@ class DefaultController extends Controller
             ->getRepository('AccueilBundle:Visite');
 
         $visites = $repository->findAll();
-        return $this->render('AccueilBundle::visites.html.twig',array('visites' => $visites));
+        return $this->render('AccueilBundle:Default:visites.html.twig',array('visites' => $visites));
     }
 }
