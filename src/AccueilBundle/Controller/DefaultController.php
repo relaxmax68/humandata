@@ -14,17 +14,17 @@ class DefaultController extends Controller
     }
     public function accueilAction()
     {
-        return $this->render('AccueilBundle:Default:accueil.html.twig');
+        return $this->render('AccueilBundle:Accueil:accueil.html.twig');
     }
 
     public function projetsAction($id)
     {
-        return $this->render('AccueilBundle:Default:projets.html.twig',array( 'id' => $id ));
+        return $this->render('AccueilBundle:Accueil:projets.html.twig',array( 'id' => $id ));
     }
 
     public function administrationAction($id)
     {
-        return $this->render('AccueilBundle:Default:administration.html.twig',array( 'id' => $id ));
+        return $this->render('AccueilBundle:Accueil:administration.html.twig',array( 'id' => $id ));
     }
 
     public function messageAction(Request $request, $id = "")

@@ -7,16 +7,21 @@
     <!--- Main Content Here -->
       <div class="maincontent">
         <h1 id="animated">Full Page Transition</h1>
-        <a class="mainlink">TRY IT NOW &#10140;</a>
+        <h6>We're not our projects, nor our objects…</h6>
+        <a class="mainlink">GO TO WEBSITE &#10140;</a>
       </div>
     </div>
 
     <div id="next-page">
       <div class="nextcontent">
-        <h1 id="animated">Great! You're in the 2nd Page!</h1>
-        <a class="nextlink"> &#8592 GO BACK</a>
+        {{ include("AccueilBundle:Accueil:accueil.html.twig") }}
+
       </div>
-      <!-- href="{{path('accueil_homepage')}} -->
+      <!--
+
+        <a class="nextlink"> &#8592 GO BACK</a>
+
+      href="{{path('accueil_homepage')}} -->
     </div>
 
 {% endblock %}
