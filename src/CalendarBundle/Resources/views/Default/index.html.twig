@@ -1,5 +1,17 @@
-{% extends "::bootstrap.html.twig" %}
+{% extends "AccueilBundle::connexion.html.twig" %}
+
 {% block body %}
-Le calendrier va bientôt arriver…
-<a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{ path('big_stats') }}">Statistiques</a>
+
+  {% if is_granted("ROLE_USER") %}
+    Le calendrier va bientôt arriver…
+    <a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{ path('big_stats') }}">Statistiques</a>
+    {{ dump(events) }}
+  {% else %}
+  <h3>
+      Accès limité aux personnes identifées. Créez votre accès personnel en cliquant sur le bouton ci-dessus «créer un compte»
+  </h3>
+  {% endif %}
+
+  <a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary" role="button" href="{{path('big_button_homepage')}}">RETOUR</a>
+
 {% endblock %}

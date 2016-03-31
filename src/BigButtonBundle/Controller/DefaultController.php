@@ -39,7 +39,9 @@ class DefaultController extends Controller
         }else{
             //sinon on recherche le dernier TAP enregistré
             $lasttap=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->findOneById($this->getdoctrine()->getRepository('BigButtonBundle:Tap')->LastUserIdTap($user));
-            $lasttask=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($lasttap->getTask()->getId());
+            //$lasttask=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($lasttap->getTask()->getId());
+            //on veut éviter toute modification de cette archive
+            $em->detach($lasttap);
         }
 
         //si jamais aucune activité n'a été réalisée par l'utilisateur on en crée une vide
@@ -47,7 +49,8 @@ class DefaultController extends Controller
             $lasttap  = new Tap();
             $lasttap->setTask( new Task());
         }else{
-            $tap->setTask($lasttask);
+            $tap->setTask($lasttap->getTask());
+            //$tap->setTask($lasttask);
         }
 
         $tap->setUser($user);
@@ -69,43 +72,48 @@ class DefaultController extends Controller
         }
 
         //traitement du formulaire
-	    	$form->handleRequest($request);
+	    $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //traitement des raccourcis
-            $i=0;
-            foreach ($priority as $element) {
-                if($form->get('priority'.$i)->isClicked()){
-                    $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($element['id']));
+            if($form->get('stats')->isClicked()){
+                $em->remove($tap);
+                return $this->redirectToRoute('big_stats');
+            }else{
+                $i=0;
+                foreach ($priority as $element) {
+                    if($form->get('priority'.$i)->isClicked()){
+                        $tap->setTask($this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($element['id']));
+                    }
+                    $i++;
                 }
-                $i++;
-            }
 
-            $tap->setDate(new \Datetime());
-            $tap->setInProgress(!$tap->getInProgress());
+                $tap->setDate(new \Datetime());
+                $tap->setInProgress(!$tap->getInProgress());
 
-            //On vérifie qu'une AUTRE tâche n'a pas déjà été commencée
-            if($lasttap->getInProgress() && $lasttap->getTask()!=$tap->getTask()){
-                //on sauvegarde la nouvelle tâche saisie
-                $newtask=$tap->getTask();
-                //on termine l'ancienne tâche et on enregistre ce Tap!
-                $tap->setInProgress(0);
-                $tap->setTask($lasttap->getTask());
+                //On vérifie qu'une AUTRE tâche n'a pas déjà été commencée
+                if($lasttap->getInProgress() && $lasttap->getTask()!=$tap->getTask()){
+                    //on sauvegarde la nouvelle tâche saisie
+                    $newtask=$tap->getTask();
+                    //on termine l'ancienne tâche et on enregistre ce Tap!
+                    $tap->setInProgress(0);
+                    $tap->setTask($lasttap->getTask());
+                    $em->flush();
+                    //on active la nouvelle tâche
+                    $tap = new Tap();
+                    $tap->setUser($user);
+                    $tap->setTask($newtask);
+                    $tap->setInProgress(1);
+                    $em->persist($tap);
+                }
+
+                //on augmente le facteur prioritaire de la tâche sélectionnée
+                $tap->getTask()->incPriority();
+
                 $em->flush();
-                //on active la nouvelle tâche
-                $tap = new Tap();
-                $tap->setUser($user);
-                $tap->setTask($newtask);
-                $tap->setInProgress(1);
-                $em->persist($tap);
-            }
 
-            //on augmente le facteur prioritaire de la tâche sélectionnée
-            $tap->getTask()->incPriority();
-
-            $em->flush();
-
-	    	    $session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
-	    	}
+    	    	$session->getFlashBag()->add('info', "Tap du ".$tap." enregistré !!!");
+    	    }
+        }
 
         //affichage des avertissements d'état
         $lastdiff=date_diff(new \Datetime(),$lasttap->getDate());
@@ -120,7 +128,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-	      return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
+   	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
     }
     public function statsAction()
     {
@@ -138,27 +146,32 @@ class DefaultController extends Controller
                 ->getDoctrine()
                 ->getManager();
 
-        $user=$repositoryUser->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+        $ipUser=$repositoryUser->findOneByipAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+
+        //on récupère l'utilisateur connecté
+        //if($this->getUser();
+
+
+
+
 
         /*
          * sauvegarde des Tap sous forme d'Event
          */
-
-        $taps = $repositoryTap->notSaved($user);
+        $taps = $repositoryTap->notSaved($ipUser);
         //on vérifie s'il y a des enregistrements à mettre à jour
         if(!empty($taps)){
           //D'abord vérifier que le premier élément est bien un TAP de début
           if(!$taps[0]->getInProgress()){
             //on réinitialise le dernier enregistrement traité
-            $lastid=$repositoryTap->idBeforeLastUserTapSaved($user->getId(),$taps[0]->getId());
+            $lastid=$repositoryTap->idBeforeLastUserTapSaved($ipUser->getId(),$taps[0]->getId());
             $lastSavedTap=$repositoryTap->findOneById($lastid);
             if(!empty($lastSavedTap)){
               $lastSavedTap->setSaved(0);
               //on recharge le tableau
-              $taps = $repositoryTap->notSaved($user);
+              $taps = $repositoryTap->notSaved($ipUser);
             }
           }
-
           foreach ($taps as $element) {
             //si le Tap n'a jamais été traité et si ce n'est pas un top
             if(!$element->getSaved() && !$element->getTop()){
@@ -174,7 +187,9 @@ class DefaultController extends Controller
 
                 $em->persist($event);
               }else{
-                $event->setEnd($element->getDate());
+                if(!empty($event)){
+                    $event->setEnd($element->getDate());
+                }
               }
             }
             //on n'oublie pas de déclarer le tap «saved»
@@ -183,7 +198,7 @@ class DefaultController extends Controller
           $em->flush();
         }
         //préparation pour l'affichage synthétique
-        $taps = $repositoryTap->myFindUserOnDuration($user,(new \Datetime())->setTime(0,0,0), new \Datetime());
+        $taps = $repositoryTap->myFindUserOnDuration($ipUser,(new \Datetime())->setTime(0,0,0), new \Datetime());
 
         $start=$taps[0];
         $i=0;

@@ -32,7 +32,6 @@ security:
         - { path: ^/administration/,  role: ROLE_SUPER_ADMIN }
         - { path: ^/bouton/,          role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/button/,          role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/stats,           role: ROLE_USER }
 
     role_hierarchy:
         # Un admin hérite des droits d'ulilisateur et de modérateur

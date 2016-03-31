@@ -11,5 +11,5 @@ big_button_add:
     defaults: { _controller: BigButtonBundle:Default:add }
 
 big_button_calendar:
-    path:     /calendar
+    path:     /stats/calendar
     defaults: { _controller: CalendarBundle:Default:index }

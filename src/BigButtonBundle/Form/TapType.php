@@ -29,7 +29,8 @@ class TapType extends AbstractType
                                                             'query_builder'=> function (EntityRepository $er)
                                                             {return $er->createQueryBuilder('t')->orderBy('t.priority', 'DESC');}))
             ->add('infos',TextareaType::class,array('required' => false))
-            ->add('tap',  SubmitType::class,  array('label'    => "TAP !"));
+            ->add('tap',  SubmitType::class,array('label'    => "TAP !"))
+            ->add('stats',SubmitType::class,array ('label'=>'Aller vers les statistiques'));
     }
     /**
      * @param OptionsResolver $resolver

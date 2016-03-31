@@ -111,3 +111,4 @@ easy_admin:
         - BigButtonBundle\Entity\Tap
         - BigButtonBundle\Entity\Task
         - BigButtonBundle\Entity\User
+        - CalendarBundle\Entity\Event
