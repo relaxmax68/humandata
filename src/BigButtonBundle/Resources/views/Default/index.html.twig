@@ -36,65 +36,65 @@
 	    <div class="form-group">
 	        {{ form_errors(form.user) }}
 	        {{ form_errors(form.task) }}
-			<div class="input-group col-lg-5">
-				<span class="input-group-btn">
-					{{ form_widget(form.user,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne un utilisateur'}}) }}
-				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal" aria-haspopup="true" data-toggle="tooltip" data-placement="right" title="Ajouter un utilisateur">
-				    	<span class="glyphicon glyphicon-plus"></span>
-				    </button>
-				</span>
-			</div><!-- /.col-lg-5 -->
-			<!-- Modal USER -->
-			<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-					    <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="userModalLabel">Ajouter un utilisateur</h4>
+					<div class="input-group col-lg-5">
+						<span class="input-group-btn">
+							{{ form_widget(form.user,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne un utilisateur'}}) }}
+						    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal" aria-haspopup="true" data-toggle="tooltip" data-placement="right" title="Ajouter un utilisateur">
+						    	<span class="glyphicon glyphicon-plus"></span>
+						    </button>
+						</span>
+					</div><!-- /.col-lg-5 -->
+					<!-- Modal USER -->
+					<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+							    <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="userModalLabel">Ajouter un utilisateur</h4>
+								</div>
+								<div class="modal-body">
+									<p>
+										<label for="pseudo">Votre pseudo</label> :
+										<input type="text" name="pseudo" id="user" placeholder="nom du nouvel utilisateur" autofocus />
+									</p>
+								</div>
+								<div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        <a type="button" class="btn btn-primary" id="saveuser" href="{{path('big_button_add')}}">Save changes</a>
+							    </div>
+							</div>
 						</div>
-						<div class="modal-body">
-							<p>
-								<label for="pseudo">Votre pseudo</label> :
-								<input type="text" name="pseudo" id="user" placeholder="nom du nouvel utilisateur" autofocus />
-							</p>
-						</div>
-						<div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <a type="button" class="btn btn-primary" id="saveuser" href="{{path('big_button_add')}}">Save changes</a>
+					</div>
+					<div class="input-group col-lg-5">
+						<span class="input-group-btn">
+							{{ form_widget(form.task,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne une tâche'}}) }}
+						    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#taskModal" data-toggle="tooltip" data-placement="right" title="Ajouter une Tâche">
+						    	<span class="glyphicon glyphicon-plus"></span>
+						    </button>
+						</span>
+					</div><!-- /input-group -->
+					<!-- Modal TASK-->
+					<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel">
+					    <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						        <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="taskModalLabel">Ajouter une activité</h4>
+						        </div>
+						        	<div class="modal-body">
+										<p>
+											<label for="pseudo">Nouvelle activité</label> :
+											<input type="text" name="pseudo" id="task" placeholder="nom de l'activité" autofocus/>
+										</p>
+							        </div>
+						        <div class="modal-footer">
+							        <button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Close</button>
+							        <a type="button" class="btn btn-primary" id="savetask" href="{{path('big_button_add')}}">Save changes</a>
+						      	</div>
+						    </div>
 					    </div>
 					</div>
-				</div>
 			</div>
-			<div class="input-group col-lg-5">
-				<span class="input-group-btn">
-					{{ form_widget(form.task,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne une tâche'}}) }}
-				    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#taskModal" data-toggle="tooltip" data-placement="right" title="Ajouter une Tâche">
-				    	<span class="glyphicon glyphicon-plus"></span>
-				    </button>
-				</span>
-			</div><!-- /input-group -->
-			<!-- Modal TASK-->
-			<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel">
-			    <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				        <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="taskModalLabel">Ajouter une activité</h4>
-				        </div>
-				        	<div class="modal-body">
-								<p>
-									<label for="pseudo">Nouvelle activité</label> :
-									<input type="text" name="pseudo" id="task" placeholder="nom de l'activité" autofocus/>
-								</p>
-					        </div>
-				        <div class="modal-footer">
-					        <button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Close</button>
-					        <a type="button" class="btn btn-primary" id="savetask" href="{{path('big_button_add')}}">Save changes</a>
-				      	</div>
-				    </div>
-			    </div>
-			</div>
-	    </div>
 	</div>
 	<div class="row">
 	    <div class="form-group">

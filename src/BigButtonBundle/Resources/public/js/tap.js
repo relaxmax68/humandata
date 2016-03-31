@@ -21,4 +21,12 @@ $(function(){
 		createCookie("ajout","task:"+$("#task").val(),1);
 	});
 
-})
+});
+
+$('#userModal').on('shown.bs.modal', function() {
+  $(this).find('input:first').focus();
+});
+
+$('#taskModal').on('shown.bs.modal', function() {
+  $(this).find('input:first').focus();
+});
