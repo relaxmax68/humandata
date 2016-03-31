@@ -83,4 +83,8 @@ class DefaultController extends Controller
     {
         return $this->render('TestsBundle:Tests:js.html.twig');
     }
+    public function userAction()
+    {
+        return $this->render('TestsBundle:Tests:user.html.twig');
+    }
 }

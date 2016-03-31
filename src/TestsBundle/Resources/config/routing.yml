@@ -37,3 +37,7 @@ tests_sql:
 tests_js:
     path:     /js
     defaults: { _controller: TestsBundle:Default:js }
+
+tests_user:
+    path:     /user
+    defaults: { _controller: TestsBundle:Default:user }
