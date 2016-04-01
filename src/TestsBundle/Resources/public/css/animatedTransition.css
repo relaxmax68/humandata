@@ -21,7 +21,7 @@ h6 {
     display: none;
 }
 
-#next-page {
+#web-page {
     height: 25px;
     width: 375px;
     position: absolute;
@@ -31,7 +31,17 @@ h6 {
     display: none;
 }
 
-.maincontent, .nextcontent {
+#app-page {
+    height: 25px;
+    width: 375px;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+    background-color: #27ae60;
+    display: none;
+}
+
+.maincontent, .appcontent, .webcontent {
     padding-top: 40px;
     display: none;
 }
@@ -47,7 +57,7 @@ a.back{
     display: block;
 }
 
-a.mainlink, a.nextlink {
+a.mainlink, a.applink, a.weblink {
     font-family: 'Lato';
     color: #fff;
     border: 3px solid #fff;
@@ -62,7 +72,7 @@ a.mainlink, a.nextlink {
     font-weight: 500;
 }
 
-a.mainlink:hover, a.nextlink:hover{
+a.mainlink:hover, a.applink:hover, a.weblink:hover{
     background: #fff;
     color: #575757;
 }

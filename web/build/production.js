@@ -13,14 +13,14 @@ $(document).ready(function() {
 		$({deg: 0}).animate({deg: angle}, args);
 	  });
 	};
-	
+
 	$("#main-page").css("background-color", "#e74c3c");
 	$("#main-page").css("height", "100vh");
 	$("#main-page").css("width", "100%");
 	$("#main-page").fadeIn();
 	$(".maincontent").fadeIn();
-	
-	$(".mainlink").on("click", function() {
+
+	$(".weblink").on("click", function() {
 		$(".maincontent").fadeOut();
 		$("#main-page").animate({
 			width: "25px",
@@ -28,11 +28,11 @@ $(document).ready(function() {
 		}, function() {
 			$(this).animateRotate(90);
 		});
-		
+
 		setTimeout(function() {
-			$("#main-page").fadeOut();		 
+			$("#main-page").fadeOut();
 		}, 1500);
-		
+
 		setTimeout(function() {
 			$("#next-page").animateRotate(0, 0);
 			$("#next-page").css("height", "25px");
@@ -53,7 +53,7 @@ $(document).ready(function() {
 			});
 		}, 800);
 	});
-		
+
 	$(".nextlink").on("click", function() {
 		$(".nextcontent").fadeOut();
 		$("#next-page").animate({
@@ -62,11 +62,11 @@ $(document).ready(function() {
 		}, function() {
 			$(this).animateRotate(-90);
 		});
-		
+
 		setTimeout(function() {
-			$("#next-page").fadeOut();			
+			$("#next-page").fadeOut();
 		}, 1500);
-		
+
 		setTimeout(function() {
 		$("#main-page").animateRotate(0, 0);
 		$("#main-page").css("height", "25px");
@@ -83,8 +83,9 @@ $(document).ready(function() {
 			});
 		}, 1400);
 	});
-	
+
 });
+
 $(function() {
   $('#texteJQ').html('Hello world. Ce texte est affiché par jQuery.');
 });
