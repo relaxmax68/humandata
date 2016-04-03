@@ -2,9 +2,13 @@ bigButton:
     path:     /button
     defaults: { _controller: BigButtonBundle:Default:index }
 
-accueil_homepage:
+accueil_animation:
     path:     /
     defaults: { _controller: AccueilBundle:Default:index }
+
+accueil_homepage:
+    path:     /accueil
+    defaults: { _controller: AccueilBundle:Default:accueil }
 
 accueil_tap:
     path:     /projets/12

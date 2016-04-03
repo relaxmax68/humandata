@@ -13,13 +13,14 @@ $(document).ready(function() {
 		$({deg: 0}).animate({deg: angle}, args);
 	  });
 	};
-
+//affichage de la page de la page de garde
 	$("#main-page").css("background-color", "#e74c3c");
 	$("#main-page").css("height", "100vh");
 	$("#main-page").css("width", "100%");
 	$("#main-page").fadeIn();
 	$(".maincontent").fadeIn();
 
+// animation de fermeture de la page de garde et envoi vers la page web
 	$(".weblink").on("click", function() {
 		$(".maincontent").fadeOut();
 		$("#main-page").animate({
@@ -28,17 +29,35 @@ $(document).ready(function() {
 		}, function() {
 			$(this).animateRotate(90);
 		});
-
 		setTimeout(function() {
 			$("#main-page").fadeOut();
-		}, 1500);
+		}, 20000);
+		window.location.replace("/Symfony/web/app_dev.php/accueil");
+	});
+
+// animation de fermeture de la page de garde et envoi vers la page app
+		$(".applink").on("click", function() {
+			$(".maincontent").fadeOut();
+			$("#main-page").animate({
+				width: "25px",
+				height: "375px"
+			}, function() {
+				$(this).animateRotate(90);
+			});
+			setTimeout(function() {
+				$("#main-page").fadeOut();
+			}, 1500);
+			window.location.replace("/Symfony/web/app_dev.php/button");
+		});
+
+//ouverture de la page web
 
 		setTimeout(function() {
-			$("#next-page").animateRotate(0, 0);
-			$("#next-page").css("height", "25px");
-			$("#next-page").css("width", "375px");
-			$("#next-page").fadeIn();
-			$("#next-page").animate({
+			$("#web-page").animateRotate(0, 0);
+			$("#web-page").css("height", "25px");
+			$("#web-page").css("width", "375px");
+			$("#web-page").fadeIn();
+			$("#web-page").animate({
 				backgroundColor: "#27ae60"
 			}, function() {
 				$(this).animate({
@@ -47,42 +66,34 @@ $(document).ready(function() {
 					$(this).animate({
 						width: "100%"
 					}, function() {
-						$(".nextcontent").fadeIn(300);
+						$(".webcontent").fadeIn(300);
 					});
 				});
 			});
 		}, 800);
-	});
 
-	$(".nextlink").on("click", function() {
-		$(".nextcontent").fadeOut();
-		$("#next-page").animate({
-			width: "25px",
-			height: "375px"
-		}, function() {
-			$(this).animateRotate(-90);
-		});
+		//ouverture de la page app
 
-		setTimeout(function() {
-			$("#next-page").fadeOut();
-		}, 1500);
+				setTimeout(function() {
+					$("#app-page").animateRotate(0, 0);
+					$("#app-page").css("height", "25px");
+					$("#app-page").css("width", "375px");
+					$("#app-page").fadeIn();
+					$("#app-page").animate({
+						backgroundColor: "#27ae60"
+					}, function() {
+						$(this).animate({
+							height: "100vh"
+						}, function() {
+							$(this).animate({
+								width: "100%"
+							}, function() {
+								$(".appcontent").fadeIn(300);
+							});
+						});
+					});
+				}, 800);
 
-		setTimeout(function() {
-		$("#main-page").animateRotate(0, 0);
-		$("#main-page").css("height", "25px");
-		$("#main-page").css("width", "375px");
-			$("#main-page").fadeIn();
-			$("#main-page").animate({
-				height: "100vh"
-			}, function() {
-				$(this).animate({
-					width: "100%"
-				}, function() {
-					$(".maincontent").fadeIn(300);
-				});
-			});
-		}, 1400);
-	});
 
 });
 
