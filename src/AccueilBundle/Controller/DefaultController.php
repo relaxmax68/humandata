@@ -10,11 +10,17 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->redirectToRoute('bigButton');;
+        return $this->render('AccueilBundle:Default:pageDeGarde.html.twig');
     }
     public function accueilAction()
     {
-        return $this->render('AccueilBundle:Accueil:accueil.html.twig');
+        //flag qui lance une animation à la première présentation du formulaire
+        if(empty($_SESSION['webFade'])){
+          $_SESSION['webFade']=0;
+        }
+        $_SESSION['webFade']++;
+
+        return $this->render('AccueilBundle:Default:index.html.twig', array('fade' => $_SESSION['webFade']));
     }
 
     public function projetsAction($id)

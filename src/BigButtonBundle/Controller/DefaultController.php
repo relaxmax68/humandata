@@ -28,10 +28,10 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //flag qui lance une animation à la première présentation du formulaire
-        if(empty($_SESSION['fade'])){
-          $_SESSION['fade']=0;
+        if(empty($_SESSION['appFade'])){
+          $_SESSION['appFade']=0;
         }
-        $_SESSION['fade']++;
+        $_SESSION['appFade']++;
 
         $tap = new Tap();
 
@@ -134,11 +134,8 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-<<<<<<< Updated upstream
-   	    return $this->render('BigButtonBundle:Default:app.html.twig', array('form' => $form->createView()));
-=======
-        return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView(), 'fade' => $_SESSION['fade']));
->>>>>>> Stashed changes
+        return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView(), 'fade' => $_SESSION['appFade']));
+
     }
     public function statsAction()
     {

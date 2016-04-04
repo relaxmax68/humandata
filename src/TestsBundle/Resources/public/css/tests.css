@@ -1,9 +1,3 @@
-{# main.css #}
-
-body {
-  padding-top: 10px;
-}
-
 #contour{
   background-color: lightgreen;
   border: 2px solid black;

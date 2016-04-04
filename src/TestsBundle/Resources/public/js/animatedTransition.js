@@ -31,7 +31,7 @@ $(document).ready(function() {
 		});
 		setTimeout(function() {
 			$("#main-page").fadeOut();
-		}, 20000);
+		}, 200000);
 		window.location.replace("/Symfony/web/app_dev.php/accueil");
 	});
 
@@ -42,11 +42,11 @@ $(document).ready(function() {
 				width: "25px",
 				height: "375px"
 			}, function() {
-				$(this).animateRotate(90);
-			});
+				$(this).animateRotate(90,'slow');
+			}, slow);
 			setTimeout(function() {
 				$("#main-page").fadeOut();
-			}, 20000);
+			}, 200000);
 			window.location.replace("/Symfony/web/app_dev.php/button");
 		});
 

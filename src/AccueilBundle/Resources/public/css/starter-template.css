@@ -1,5 +1,5 @@
-body {
-  padding-top: 100px;
+#main {
+  background-color: "#27ae60";
 }
 
 .starter-template {
@@ -16,5 +16,5 @@ img {
 }
 
 .info {
-	padding-left:50%;
+	padding-left: 50%;
 }

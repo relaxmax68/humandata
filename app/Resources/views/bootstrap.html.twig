@@ -29,24 +29,23 @@
 </head>
 
 <body>
+    <div  id="main">
+        <div class="container">
 
-  <div class="container">
-    {% block body %}
+          {% block body %}
 
-        {% block footer %}
-        {% endblock %}
+              {% block footer %}
+              {% endblock %}
 
-    {% endblock %}
+          {% endblock %}
+          </div>
+    </div>
 
-
-
-  </div>
-
-  {% block javascripts %}
+{% block javascripts %}
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('/build/production.min.js') }}"></script>
-  {% endblock %}
+{% endblock %}
 </body>
 
 </html>

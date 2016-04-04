@@ -20,14 +20,10 @@ $(document).ready(function() {
 	$("#main-page").fadeIn();
 	$(".maincontent").fadeIn();
 
-<<<<<<< HEAD
 // animation de fermeture de la page de garde et envoi vers la page web
 	$(".weblink").on("click", function() {
 		$(".maincontent").fadeOut();
 		$("#main-page").animate({
-=======
-		$("#app-page").animate({
->>>>>>> dcefa97... Apparition de la page TAP
 			width: "25px",
 			height: "375px"
 		}, function() {
@@ -35,7 +31,7 @@ $(document).ready(function() {
 		});
 		setTimeout(function() {
 			$("#main-page").fadeOut();
-		}, 20000);
+		}, 200000);
 		window.location.replace("/Symfony/web/app_dev.php/accueil");
 	});
 
@@ -46,45 +42,32 @@ $(document).ready(function() {
 				width: "25px",
 				height: "375px"
 			}, function() {
-				$(this).animateRotate(90);
-			});
+				$(this).animateRotate(90,'slow');
+			}, slow);
 			setTimeout(function() {
 				$("#main-page").fadeOut();
-			}, 20000);
+			}, 200000);
 			window.location.replace("/Symfony/web/app_dev.php/button");
 		});
 
 //ouverture de la page web
 
 		setTimeout(function() {
-<<<<<<< HEAD
 			$("#web-page").animateRotate(0, 0);
 			$("#web-page").css("height", "25px");
 			$("#web-page").css("width", "375px");
 			$("#web-page").fadeIn();
 			$("#web-page").animate({
 				backgroundColor: "#27ae60"
-=======
-		$("#app-page").animateRotate(0, 0);
-		$("#app-page").css("height", "25px");
-		$("#app-page").css("width", "375px");
-			$("#app-page").fadeIn();
-			$("#app-page").animate({
-				height: "100vh"
->>>>>>> dcefa97... Apparition de la page TAP
 			}, function() {
 				$(this).animate({
 					height: "100vh"
 				}, function() {
-<<<<<<< HEAD
 					$(this).animate({
 						width: "100%"
 					}, function() {
 						$(".webcontent").fadeIn(300);
 					});
-=======
-					$(".appcontent").fadeIn(300);
->>>>>>> dcefa97... Apparition de la page TAP
 				});
 			});
 		}, 800);
