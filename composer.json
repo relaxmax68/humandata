@@ -28,7 +28,7 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "knplabs/knp-menu-bundle": "^2.0",
-        "javiereguiluz/easyadmin-bundle": "^1.11",
+        "javiereguiluz/easyadmin-bundle": "^1.11"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
