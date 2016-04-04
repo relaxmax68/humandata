@@ -10,7 +10,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AccueilBundle:Default:index.html.twig');
+        return $this->render('AccueilBundle:Default:web.html.twig');
     }
     public function accueilAction()
     {

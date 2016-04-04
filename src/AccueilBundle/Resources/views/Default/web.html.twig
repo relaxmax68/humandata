@@ -3,13 +3,10 @@
 {% block title %}Humandata{% endblock %}
 
 {% block body %}
-    <div id="main-page">
-      <div class="maincontent">
-        <h1 id="animated">HumanData</h1>
-        <h6>We're not our projects, nor our objects…</h6>
-        <a class="mainlink">TEST OUR FIRST APP &#10140;</a>
-        <a class="mainlink">GO TO WEBSITE &#8592;</a>
+    <div id="web-page">
+      <div class="webcontent">
+          {{ include("AccueilBundle:Accueil:accueil.html.twig") }}
       </div>
     </div>
-    
+
 {% endblock %}

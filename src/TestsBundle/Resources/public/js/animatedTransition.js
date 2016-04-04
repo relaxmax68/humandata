@@ -46,7 +46,7 @@ $(document).ready(function() {
 			});
 			setTimeout(function() {
 				$("#main-page").fadeOut();
-			}, 1500);
+			}, 20000);
 			window.location.replace("/Symfony/web/app_dev.php/button");
 		});
 

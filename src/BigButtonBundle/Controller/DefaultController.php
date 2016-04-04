@@ -134,7 +134,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-   	    return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView()));
+   	    return $this->render('BigButtonBundle:Default:app.html.twig', array('form' => $form->createView()));
     }
     public function statsAction()
     {
