@@ -10,7 +10,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AccueilBundle:Default:web.html.twig');
+        return $this->redirectToRoute('bigButton');;
     }
     public function accueilAction()
     {
