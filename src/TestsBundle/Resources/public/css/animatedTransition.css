@@ -2,7 +2,7 @@
     font-family: 'Raleway';
     font-weight: bold;
     text-align: center;
-    font-size: 50px;
+    font-size: 60px;
     color: #fff;
     margin-top: 120px;
 }
@@ -68,7 +68,7 @@ a.mainlink, a.applink, a.weblink {
     width: 13%;
     text-decoration: none;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
 }
 
