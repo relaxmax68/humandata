@@ -3,11 +3,22 @@
 {% block title %}Tap !{% endblock %}
 
 {% block body %}
+{% if fade == 1 %}
+		<div id="app-page">
+				<div class="appcontent">
+{% endif %}
 
+<<<<<<< Updated upstream
 <div id="app-page">
 			<div class="appcontent">
 						  <div class="container">
 										{{ include("AccueilBundle::connexion.html.twig") }}
+=======
+<<<<<<< HEAD
+	<div class="row">
+		{{ form_start(form) }}
+		{{ form_errors(form) }}
+>>>>>>> Stashed changes
 
 										<div class="row">
 											{{ form_start(form) }}
@@ -140,6 +151,152 @@
 										{% endblock %}
 						</div>
 			</div>
+<<<<<<< Updated upstream
 </div>
+=======
+	</div>
+	<div class="row">
+		{{ form_end(form) }}
+	</div>
+=======
+<div class="container">
+      {{ include("AccueilBundle::connexion.html.twig") }}
+>>>>>>> Stashed changes
 
+      <div class="row">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+          <div class="form-group">
+              {# On affiche tous les messages flash dont le nom est « info » «start» «stop» #}
+            {% for message in app.session.flashbag.get('info') %}
+              <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-info">{{ message }}</p>
+            {% endfor %}
+            {% for message in app.session.flashbag.get('start') %}
+              <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-success">{{ message }}</p>
+            {% endfor %}
+            {% for message in app.session.flashbag.get('stop') %}
+              <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-danger">{{ message }}</p>
+            {% endfor %}
+          </div>
+      </div>
+
+      <div class="row">
+            {{ form_widget(form.tap,{'attr':{'class':'btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12'}}) }}
+      </div>
+
+      <div class="row">
+            {{ form_widget(form.priority0,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4', 'data-toggle':'tooltip', 'data-placement':'bottom', 'title':'Sélectionne directement cette tâche'}}) }}
+            {{ form_widget(form.priority1,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4', 'data-toggle':'tooltip', 'data-placement':'bottom', 'title':'Sélectionne directement cette tâche'}}) }}
+            {{ form_widget(form.priority2,{'attr':{'class':'btn btn-primary col-xs-4 col-sm-4 col-md-4 col-lg-4', 'data-toggle':'tooltip', 'data-placement':'bottom', 'title':'Sélectionne directement cette tâche'}}) }}
+      </div>
+
+      <div class="row">
+          <div class="form-group">
+              {{ form_errors(form.user) }}
+              {{ form_errors(form.task) }}
+              <div class="input-group col-lg-5">
+                <span class="input-group-btn">
+                  {{ form_widget(form.user,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne un utilisateur'}}) }}
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal" aria-haspopup="true" data-toggle="tooltip" data-placement="right" title="Ajouter un utilisateur">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+              </div><!-- /.col-lg-5 -->
+              <!-- Modal USER -->
+              <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="userModalLabel">Ajouter un utilisateur</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>
+                        <label for="pseudo">Votre pseudo</label> :
+                        <input type="text" name="pseudo" id="user" placeholder="nom du nouvel utilisateur" autofocus />
+                      </p>
+                    </div>
+                    <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <a type="button" class="btn btn-primary" id="saveuser" href="{{path('big_button_add')}}">Save changes</a>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group col-lg-5">
+                <span class="input-group-btn">
+                  {{ form_widget(form.task,{'attr':{'class':'btn-lg form-control', 'data-toggle':'tooltip', 'data-placement':'left', 'title':'Sélectionne une tâche'}}) }}
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#taskModal" data-toggle="tooltip" data-placement="right" title="Ajouter une Tâche">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+              </div><!-- /input-group -->
+              <!-- Modal TASK-->
+              <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="taskModalLabel">Ajouter une activité</h4>
+                        </div>
+                          <div class="modal-body">
+                        <p>
+                          <label for="pseudo">Nouvelle activité</label> :
+                          <input type="text" name="pseudo" id="task" placeholder="nom de l'activité" autofocus/>
+                        </p>
+                          </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" id="cancel" data-dismiss="modal">Close</button>
+                          <a type="button" class="btn btn-primary" id="savetask" href="{{path('big_button_add')}}">Save changes</a>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group">
+              {# On affiche tous les messages flash dont le nom est « erreur » #}
+            {% for message in app.session.flashbag.get('erreur') %}
+              <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-warning">{{ message }}</p>
+            {% endfor %}
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group">
+              {{ form_errors(form.infos) }}
+              {{ form_widget(form.infos,{'attr':{'class':'col-xs-12 col-sm-12 col-md-12 col-lg-12'}}) }}
+          </div>
+      </div>
+      <div class="row">
+          <div class="form-group">
+              {# On affiche tous les messages flash dont le nom est « duree » #}
+            {% for message in app.session.flashbag.get('duree') %}
+              <p class="col-xs-12 col-sm-12 col-md-12 col-lg-12  btn btn-info">{{ message }}</p>
+            {% endfor %}
+          </div>
+      </div>
+      <div class="row">
+            {{ form_widget(form.stats,{'attr':{'class':'btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12'}}) }}
+      </div>
+      <div class="row">
+          <div>
+              <a class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-info" href="{{path('accueil_homepage')}}">Retour chez Humandata.info</a>
+          </div>
+      </div>
+      <div class="row">
+        {{ form_end(form) }}
+      </div>
+
+      {% block footer %}
+          {{ include("AccueilBundle::footer.html.twig") }}
+      {% endblock %}
+</div>
+>>>>>>> bf87b52... Animation limitée à  une fois
+
+{% if fade == 1 %}
+				<div/>
+		<div/>
+{% endif %}
 {% endblock %}

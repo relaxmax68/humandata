@@ -25,7 +25,3 @@ tests:
 big_button:
     resource: "@BigButtonBundle/Resources/config/routing.yml"
     prefix:   /button
-
-big_bouton:
-    resource: "@BigButtonBundle/Resources/config/routing.yml"
-    prefix:   /bouton

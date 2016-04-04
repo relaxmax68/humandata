@@ -3,6 +3,7 @@
 {% block title %}Humandata{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
     <div id="main-page">
       <div class="maincontent">
         <h1 id="animated">HumanData</h1>
@@ -11,5 +12,21 @@
         <a class="weblink">GO TO WEBSITE &#8592;</a>
       </div>
     </div>
+=======
+>>>>>>> bf87b52... Animation limitée à  une fois
 
+    {% if fade == 1 %}
+    <div id="app-page">
+				<div class="appcontent">
+          {{ fade }}
+    {% endif %}
+            <div id="web-page">
+              <div class="webcontent">
+                  {{ include("AccueilBundle:Accueil:accueil.html.twig") }}
+              </div>
+            </div>
+    {% if fade == 1 %}
+        <div/>
+		<div/>
+    {% endif %}
 {% endblock %}

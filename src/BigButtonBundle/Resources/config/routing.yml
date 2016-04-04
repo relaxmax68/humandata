@@ -1,6 +1,7 @@
 big_button_homepage:
     path:     /
-    defaults: { _controller: BigButtonBundle:Default:index }
+    defaults:
+        _controller: BigButtonBundle:Default:index
 
 big_stats:
     path:     /stats
