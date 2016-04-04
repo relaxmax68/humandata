@@ -27,6 +27,12 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
+        //flag qui lance une animation à la première présentation du formulaire
+        if(empty($_SESSION['fade'])){
+          $_SESSION['fade']=0;
+        }
+        $_SESSION['fade']++;
+
         $tap = new Tap();
 
         //on cherche une IP déjà enregistrée dans la BDD tap_user grâce au service IPListener
