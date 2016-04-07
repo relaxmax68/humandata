@@ -41,7 +41,6 @@ class DefaultController extends Controller
         //si première visite on l'enregistre et on l'affiche par défaut
         if(empty($user)){
             $user = new User();
-            $user->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
         }else{
             //sinon on recherche le dernier TAP enregistré
             $lasttap=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->findOneById($this->getdoctrine()->getRepository('BigButtonBundle:Tap')->LastUserIdTap($user));
