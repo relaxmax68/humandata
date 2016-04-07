@@ -43,3 +43,7 @@ dploy.yaml
 /web/config.php
 /web/app_dev.php
 .htaccess
+ 
+web/build/production.css
+web/build/production.js
+web/build/production.min.js

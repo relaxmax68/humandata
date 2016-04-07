@@ -35,6 +35,11 @@ class Task
      */
     private $priority;
 
+    public function __construct(){
+        $this->priority = 0;
+    }
+
+
     public function __toString(){
         return $this->name;
     }

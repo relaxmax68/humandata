@@ -35,10 +35,10 @@ class User
      */
     private $ipAddress;
 
-    public function __construct($name){
+    public function __construct($name,$ip){
 
         $this->name      = $name;
-        $this->ipAddress = $this->container->get('accueil.ip.listener')->getVisite()->getIpAddress();
+        $this->ipAddress = $ip;
     }
 
     public function __toString(){
