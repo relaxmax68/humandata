@@ -31,8 +31,8 @@ $(document).ready(function() {
 		});
 		setTimeout(function() {
 			$("#main-page").fadeOut();
-		}, 200000);
-		window.location.replace("/Symfony/web/app_dev.php/accueil");
+		}, 2000);
+		window.location.replace("/Symfony/web/app.php/accueil");
 	});
 
 // animation de fermeture de la page de garde et envoi vers la page app
@@ -42,12 +42,12 @@ $(document).ready(function() {
 				width: "25px",
 				height: "375px"
 			}, function() {
-				$(this).animateRotate(90,'slow');
-			}, slow);
+				$(this).animateRotate(90);
+			});
 			setTimeout(function() {
 				$("#main-page").fadeOut();
-			}, 200000);
-			window.location.replace("/Symfony/web/app_dev.php/button");
+			}, 2000);
+			window.location.replace("/Symfony/web/app.php/button");
 		});
 
 //ouverture de la page web
