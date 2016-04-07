@@ -1,10 +1,11 @@
-{% extends "AccueilBundle::connexion.html.twig" %}
+{% extends "::bootstrap.html.twig" %}
 
-{% block title %}{{ parent() }} - Analyse{% endblock %}
+{% block title %}Analyse{% endblock %}
 
 {% block titre %}
 	<h1 class="page-header">Analyse</h1>
 {% endblock %}
 
 {% block body %}
+{{ include("AccueilBundle::connexion.html.twig") }}
 {% endblock %}

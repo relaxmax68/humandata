@@ -96,9 +96,6 @@ class AnalyseController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $lastCategory=$analyse.category.id;
-            $lastObject=$analyse.object.id;
-
             $em->persist($analyse);
             $em->flush();
 
