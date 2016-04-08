@@ -40,13 +40,14 @@ class DefaultController extends Controller
 
         //si première visite on l'enregistre et on l'affiche par défaut
         if(empty($user)){
-            $user = new User();
+            $user = new User($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress(),$this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
         }else{
             //sinon on recherche le dernier TAP enregistré
             $lasttap=$this->getdoctrine()->getRepository('BigButtonBundle:Tap')->findOneById($this->getdoctrine()->getRepository('BigButtonBundle:Tap')->LastUserIdTap($user));
             //$lasttask=$this->getdoctrine()->getRepository('BigButtonBundle:Task')->findOneById($lasttap->getTask()->getId());
             //on veut éviter toute modification de cette archive
-            $em->detach($lasttap);
+
+            if(isset($lasttap)){            $em->detach($lasttap);}
         }
 
         //si jamais aucune activité n'a été réalisée par l'utilisateur on en crée une vide
@@ -130,7 +131,7 @@ class DefaultController extends Controller
             $diff=$tap->formatDuree($lasttap);
             $session->getFlashBag()->add('duree', "La dernière activité ".$diff);
             //on sauvegarde le paramètre Top
-            $em->flush();
+            //$em->flush();
         }
 
         return $this->render('BigButtonBundle:Default:index.html.twig', array('form' => $form->createView(), 'fade' => $_SESSION['appFade']));
@@ -239,8 +240,7 @@ class DefaultController extends Controller
             //on vérifie qu'un enregistrement identique n'existe pas déjà
             $ajout=$repositoryUser->findOneByName($cookie[1]);
             if(empty($ajout)){
-                $ajout = new User();
-                $ajout->setIpAddress($this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
+                $ajout = new User($ajout,$this->container->get('accueil.ip.listener')->getVisite()->getIpAddress());
             }else{
                 $session->getFlashBag()->add('erreur', "L'utilisateur « ".$cookie[1]." » est déjà enregistré !!!");
             }

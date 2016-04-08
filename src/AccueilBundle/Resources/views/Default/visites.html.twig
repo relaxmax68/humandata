@@ -3,10 +3,10 @@
 {% block body %}
 
 <div class="row">
-	<ul class="col-md-3" "list-group">
+	<ul class="col-md-4" "list-group">
 
 	  {% for visite in visites %}
-	    <li class="list-group-item">{{ visite.ipAddress }}</li>
+	    <li class="list-group-item">{{ visite.ipAddress }} <strong>{{ visite.identitification }} </strong>{{ visite.nbVisit}} visites</li>
 	  {% endfor %}
 
 	</ul>
